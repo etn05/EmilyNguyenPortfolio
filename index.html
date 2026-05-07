@@ -3,230 +3,322 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emily Nguyen — Portfolio</title>
-    <meta
-      name="description"
-      content="Multidisciplinary designer at NYU — UX, graphic design, and creative tech."
-    />
+    <title>Emily Nguyen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Syne:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+      width="0"
+      height="0"
+      style="position: absolute"
+    >
+      <defs>
+        <filter id="footer-grain" x="-35%" y="-35%" width="170%" height="170%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.75"
+            numOctaves="3"
+            stitchTiles="stitch"
+            seed="91"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="14"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+    </svg>
+
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="site-header" data-reveal>
-      <a href="#" class="logo" aria-label="Emily Nguyen home">ETN</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#works">Works</a>
+    <header class="site-header">
+      <a href="index.html" class="logo-mark" aria-label="Home — Emily Nguyen">天</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#projects">Projects</a>
         <a href="#gallery">Gallery</a>
-        <a href="#about">About</a>
+        <a href="about.html">About</a>
       </nav>
-      <button
-        type="button"
-        class="nav-toggle"
-        aria-expanded="false"
-        aria-controls="mobile-nav"
-        aria-label="Open menu"
-      >
-        <span></span><span></span>
-      </button>
     </header>
 
-    <div
-      class="mobile-nav"
-      id="mobile-nav"
-      inert
-      aria-hidden="true"
-    >
-      <a href="#works">Works</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#about">About</a>
-    </div>
-
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__inner">
-          <div class="hero__titles" data-parallax="0.12">
-            <h1 id="hero-title" class="hero__name">
-              <span class="hero__name-line" data-reveal data-reveal-delay="0"
-                >Emily</span
-              >
-              <span class="hero__name-line" data-reveal data-reveal-delay="80"
-                >Nguyen</span
-              >
-            </h1>
-            <div class="hero__avatar-wrap" data-reveal data-reveal-delay="160">
-              <div class="hero__avatar" role="img" aria-label="Portrait placeholder">
-                <span class="hero__avatar-initials">EN</span>
+      <section class="section hero">
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <div class="hero-title-wrap" data-reveal data-reveal-delay="0">
+              <h1 class="sr-only">Emily Nguyen</h1>
+              <div class="hero-media-row">
+                <div
+                  class="hero-embed-shell hero-embed-shell--title"
+                  title="Embedded interaction from emily interaction/index.html"
+                >
+                  <iframe
+                    src="emily_interaction/index.html"
+                    title="Emily magnifier interaction"
+                    style="width: 100%; height: clamp(300px, 50vh, 700px); border: 0; display: block;"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+                <div class="hero-gif-shell" aria-hidden="true">
+                  <img
+                    src="images/ascii-animation.gif"
+                    alt=""
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="hero-meta">
+              <p class="hero-intro" data-reveal>
+                Hi, I’m Emily! A multidisciplinary designer at NYU blending UX/UI and graphic design to create intuitive digital experiences with strong visual identity and and an emphasis on culture, aesthetics, and usability.
+              </p>
+              <div class="hero-links" data-reveal>
+                <a href="mailto:etn6939@nyu.edu">etn6939@nyu.edu</a>
+                <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
+                <a href="#">Resume</a>
               </div>
             </div>
           </div>
-
-          <div class="hero__intro" data-reveal data-reveal-delay="220">
-            <p class="hero__tagline">
-              Hello, I’m Emily! A multidisciplinary designer at NYU blending UX,
-              graphic design, and creative tech to create thoughtful, people-first
-              experiences.
-            </p>
-            <div class="hero__contact">
-              <a class="email-link" href="mailto:etn6939@nyu.edu"
-                >etn6939@nyu.edu</a
-              >
-              <button type="button" class="copy-btn" data-copy="etn6939@nyu.edu">
-                <span class="copy-btn__label">Copy</span>
-                <span class="copy-btn__done" hidden>Copied</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="hero__scroll-hint" aria-hidden="true">
-          <span>Scroll</span>
-          <span class="hero__scroll-line"></span>
         </div>
       </section>
 
-      <section id="works" class="section section--works">
-        <div class="section__head" data-reveal>
-          <h2 class="section__label">Work</h2>
-          <p class="section__sub">Selected projects</p>
-        </div>
-        <ul class="work-grid">
-          <li class="work-card" data-reveal data-reveal-delay="0">
-            <a href="#" class="work-card__link">
-              <div class="work-card__media work-card__media--1"></div>
-              <div class="work-card__meta">
-                <h3>Identifi</h3>
-                <p>UX &amp; product</p>
-              </div>
-            </a>
-          </li>
-          <li class="work-card" data-reveal data-reveal-delay="60">
-            <a href="#" class="work-card__link">
-              <div class="work-card__media work-card__media--2"></div>
-              <div class="work-card__meta">
-                <h3>Visual Foundation Studio</h3>
-                <p>Visual design</p>
-              </div>
-            </a>
-          </li>
-          <li class="work-card" data-reveal data-reveal-delay="120">
-            <a href="#" class="work-card__link">
-              <div class="work-card__media work-card__media--3"></div>
-              <div class="work-card__meta">
-                <h3>Luma</h3>
-                <p>Creative direction</p>
-              </div>
-            </a>
-          </li>
-          <li class="work-card" data-reveal data-reveal-delay="0">
-            <a href="#" class="work-card__link">
-              <div class="work-card__media work-card__media--4"></div>
-              <div class="work-card__meta">
-                <h3>Graphic Design @ OSLE</h3>
-                <p>Branding &amp; print</p>
-              </div>
-            </a>
-          </li>
-          <li class="work-card" data-reveal data-reveal-delay="60">
-            <a href="#" class="work-card__link">
-              <div class="work-card__media work-card__media--5"></div>
-              <div class="work-card__meta">
-                <h3>memento</h3>
-                <p>Experimental</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <section class="section" id="projects" aria-labelledby="projects-heading">
+        <div class="section__inner">
+          <header class="section-head">
+            <h2 id="projects-heading" class="type-section">(Projects)</h2>
+          </header>
 
-      <section id="gallery" class="section section--gallery">
-        <div class="section__head" data-reveal>
-          <h2 class="section__label">Gallery</h2>
-          <p class="section__sub">Visual experiments &amp; process</p>
-        </div>
-        <div class="gallery-masonry">
-          <figure class="gallery-item gallery-item--tall" data-reveal>
-            <div class="gallery-item__inner gallery-item__inner--a"></div>
-            <figcaption class="visually-hidden">Gallery piece 1</figcaption>
-          </figure>
-          <figure class="gallery-item" data-reveal data-reveal-delay="80">
-            <div class="gallery-item__inner gallery-item__inner--b"></div>
-            <figcaption class="visually-hidden">Gallery piece 2</figcaption>
-          </figure>
-          <figure class="gallery-item" data-reveal data-reveal-delay="40">
-            <div class="gallery-item__inner gallery-item__inner--c"></div>
-            <figcaption class="visually-hidden">Gallery piece 3</figcaption>
-          </figure>
-          <figure class="gallery-item gallery-item--wide" data-reveal>
-            <div class="gallery-item__inner gallery-item__inner--d"></div>
-            <figcaption class="visually-hidden">Gallery piece 4</figcaption>
-          </figure>
-          <figure class="gallery-item" data-reveal data-reveal-delay="100">
-            <div class="gallery-item__inner gallery-item__inner--e"></div>
-            <figcaption class="visually-hidden">Gallery piece 5</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section id="about" class="section section--about">
-        <div class="about-grid">
-          <div class="about__copy" data-reveal>
-            <h2 class="section__label">About</h2>
-            <p>
-              You can find me at NYU majoring in Integrated Design and Media at the
-              Tandon School of Engineering and graphic designing at Pulse Records!
-            </p>
-            <p>
-              I design with empathy, creativity, and purpose — solving problems and
-              shaping experiences that empower the people behind the screen.
-            </p>
-          </div>
-          <div class="about__links" data-reveal data-reveal-delay="100">
-            <h3 class="about__links-title">Connect</h3>
-            <ul class="link-list">
-              <li><a href="#" rel="noopener noreferrer">CV</a></li>
-              <li>
-                <a href="#" rel="noopener noreferrer">LinkedIn</a>
-              </li>
-              <li><a href="#" rel="noopener noreferrer">Are.na</a></li>
-              <li><a href="#" rel="noopener noreferrer">GitHub</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <div class="footer__inner">
-          <div class="footer__cta" data-reveal>
-            <h2 class="footer__title">Let’s Chat!</h2>
-            <div class="footer__actions">
-              <a class="btn btn--primary" href="mailto:etn6939@nyu.edu"
-                >Get in Touch</a
-              >
-              <span class="footer__badge">Available for work</span>
-            </div>
-            <a class="footer__email" href="mailto:etn6939@nyu.edu"
-              >etn6939@nyu.edu</a
+          <div class="filter-row" role="toolbar" aria-label="Filter projects">
+            <button
+              type="button"
+              class="filter-chip is-active"
+              data-filter="all"
             >
+              See All
+            </button>
+            <button type="button" class="filter-chip" data-filter="featured">
+              Featured
+            </button>
+            <button type="button" class="filter-chip" data-filter="graphic">
+              Graphic Design
+            </button>
+            <button type="button" class="filter-chip" data-filter="ux">
+              UX/UI
+            </button>
+            <button type="button" class="filter-chip" data-filter="other">
+              Other
+            </button>
           </div>
-          <div class="footer__bottom" data-reveal data-reveal-delay="80">
-            <nav class="footer__nav" aria-label="Footer">
-              <a href="#" rel="noopener noreferrer">CV</a>
-              <a href="#" rel="noopener noreferrer">LinkedIn</a>
-              <a href="#" rel="noopener noreferrer">Are.na</a>
-              <a href="#" rel="noopener noreferrer">GitHub</a>
-            </nav>
-            <p class="footer__credit">© Emily Nguyen</p>
+
+          <div class="project-grid">
+            <a
+              class="project-card"
+              href="https://etnprojects.framer.website/work/pulse"
+              data-category="featured graphic"
+              data-reveal
+            >
+              <div class="project-card-thumb">
+                <img
+                  src="images/projects/pulse.png"
+                  alt=""
+                  width="600"
+                  height="450"
+                />
+              </div>
+              <h3 class="type-project-title">Pulse Records</h3>
+              <p class="type-micro">Campaign · Music · Web Design</p>
+            </a>
+
+            <a
+              class="project-card"
+              href="projects/luma.html"
+              data-category="ux product"
+              data-reveal
+            >
+              <div class="project-card-thumb">
+                <img
+                  src="images/projects/luma-mockup.png"
+                  alt=""
+                  width="600"
+                  height="450"
+                />
+              </div>
+              <h3 class="type-project-title">Luma</h3>
+              <p class="type-micro">Case Study · Behavioral Design</p>
+            </a>
+
+            <a
+              class="project-card"
+              href="projects/identifi.html"
+              data-category="ux product"
+              data-reveal
+            >
+              <div class="project-card-thumb">
+                <img
+                  src="images/placeholder.svg"
+                  alt=""
+                  width="600"
+                  height="450"
+                />
+              </div>
+              <h3 class="type-project-title">Identifi</h3>
+              <p class="type-micro">Top 10/250 · Hackathon · Case Study</p>
+            </a>
+
+            <a
+            class="project-card"
+            href="projects/identifi.html"
+            data-category="ux product"
+            data-reveal
+          >
+            <div class="project-card-thumb">
+              <img
+                src="images/placeholder.svg"
+                alt=""
+                width="600"
+                height="450"
+              />
+            </div>
+            <h3 class="type-project-title">Identifi</h3>
+            <p class="type-micro">Biometric onboarding flow</p>
+          </a>
+
+          <a
+          class="project-card"
+          href="projects/identifi.html"
+          data-category="ux product"
+          data-reveal
+        >
+          <div class="project-card-thumb">
+            <img
+              src="images/placeholder.svg"
+              alt=""
+              width="600"
+              height="450"
+            />
+          </div>
+          <h3 class="type-project-title">Identifi</h3>
+          <p class="type-micro">Biometric onboarding flow</p>
+        </a>
+    
+
+  
+      </section>
+
+      <section class="section" id="gallery" aria-labelledby="gallery-heading">
+        <div class="section__inner">
+          <header class="section-head">
+            <h2 id="gallery-heading" class="type-section">(Gallery)</h2>
+            <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/stuff-i-ve-made-bghichjs1zi" class="btn-quiet">See More</a>
+          </header>
+
+          <div class="gallery-grid">
+            <div class="gallery-cell" data-reveal>
+              <img
+                src="images/gallery/etn.gif"
+                alt=""
+                width="400"
+                height="300"
+              />
+            </div>
+            <div class="gallery-cell" data-reveal>
+              <img
+                src="images/gallery/aphex.png"
+                alt=""
+                width="400"
+                height="300"
+              />
+            </div>
+            <div class="gallery-cell" data-reveal>
+              <img
+                src="images/gallery/peyton.jpeg"
+                alt=""
+                width="400"
+                height="300"
+              />
+            </div>
+            <!-- <div class="gallery-cell gallery-wide" data-reveal>
+              <img
+                src="images/placeholder.svg"
+                alt=""
+                width="1200"
+                height="400"
+              />
+            </div> -->
           </div>
         </div>
-      </footer>
+      </section>
+
+      <section class="section" id="about-teaser">
+        <div class="section__inner">
+          <header class="section-head">
+            <h2 id="about-heading" class="type-section">(About)</h2>
+            <a href="about.html" class="btn-quiet">Read More</a>
+          </header>
+
+          <div class="about-layout">
+            <div data-reveal>
+              <div class="about-text">
+                <p>
+                  You can find me at NYU majoring in Integrated Design and Media at the Tandon School of Engineering and graphic designing at Pulse Records!
+                </p>
+              </div>
+              <nav class="about-links" aria-label="Elsewhere">
+                <a href="mailto:etn6939@nyu.edu">Email</a>
+                <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
+                <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a>
+                <a href="https://github.com/etn05">GitHub</a>
+                <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels">Are.na</a>
+              </nav>
+            </div>
+            <figure class="about-photo" data-reveal>
+              <img
+                src="images/aboutemily.png"
+                alt="Portrait placeholder"
+                width="320"
+                height="420"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <footer class="site-footer">
+      <div class="footer-row">
+        <p class="footer-title">
+          <img
+            src="images/footer.png"
+            alt="Emily Nguyen"
+            class="footer-logo"
+            loading="lazy"
+          />
+        </p>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="mailto:etn6939@nyu.edu">Email</a>
+          <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
+          <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a>
+          <a href="https://github.com/etn05">GitHub</a>
+          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels">Are.na</a>
+        </nav>
+      </div>
+      <p class="footer-credit">Designed/Coded by Emily Nguyen &copy; 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

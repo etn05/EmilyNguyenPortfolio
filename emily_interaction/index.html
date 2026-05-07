@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Emily — hero interaction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Reset for iframe embed + standalone */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #ffffff;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      .emily-magnify-root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        margin: 0;
+        background: #ffffff;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+      }
+
+      .emily-magnify-stage {
+        position: absolute;
+        overflow: hidden;
+      }
+
+      .emily-magnify-root canvas {
+        display: block;
+        position: absolute;
+        background: #ffffff;
+      }
+
+      .emily-magnify-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="emily-magnify-root"
+      data-emily-magnify
+      data-blur-src="./emilyblur.png"
+      data-sharp-src="./emilyunblur.png"
+    >
+      <div class="emily-magnify-stage">
+        <canvas aria-label="Interactive graphic"></canvas>
+      </div>
+      <div class="emily-magnify-loading">Loading…</div>
+    </div>
+
+    <script>
+      (function () {
+        const root = document.querySelector("[data-emily-magnify]");
+        if (!root) return;
+
+        const BLUR_SRC = root.dataset.blurSrc || "./emilyblur.png";
+        const SHARP_SRC = root.dataset.sharpSrc || "./emilyunblur.png";
+
+        const imageStage = root.querySelector(".emily-magnify-stage");
+        const canvas = root.querySelector("canvas");
+        if (!imageStage || !canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        const loadingText = root.querySelector(".emily-magnify-loading");
+
+        const TRAIL_CHAIN_EASE = 0.34;
+        const TRAIL_SEGMENT_COUNT = 32;
+
+        const offscreen = document.createElement("canvas");
+        const offCtx = offscreen.getContext("2d");
+        const trailMask = document.createElement("canvas");
+        const trailMaskCtx = trailMask.getContext("2d");
+
+        if (ctx) ctx.imageSmoothingEnabled = true;
+        if (offCtx) offCtx.imageSmoothingEnabled = true;
+        if (trailMaskCtx) trailMaskCtx.imageSmoothingEnabled = true;
+
+        const blurImg = new Image();
+        const sharpImg = new Image();
+
+        let mode = "images";
+        let imgLoadedCount = 0;
+        let imgWidth = 0;
+        let imgHeight = 0;
+        let displayWidth = 0;
+        let displayHeight = 0;
+        let dpr = Math.max(1, window.devicePixelRatio || 1);
+        let lastMouse = null;
+        /** @type {{ x: number; y: number; drawX: number; drawY: number }[]} */
+        let trailSegs = [];
+        /** @type {ResizeObserver | null} */
+        let resizeObserver = null;
+        /** @type {number} */
+        let fallbackT = 0;
+        /** @type {{ x: number; y: number; vx: number; vy: number }[]} */
+        let fallbackNodes = [];
+
+        function seedTrail(mx, my) {
+          trailSegs = [];
+          for (let i = 0; i < TRAIL_SEGMENT_COUNT; i++) {
+            trailSegs.push({ x: mx, y: my, drawX: mx, drawY: my });
+          }
+        }
+
+        function updateTrailChain() {
+          if (!lastMouse || !trailSegs.length) return;
+          let x = lastMouse.x;
+          let y = lastMouse.y;
+          for (let i = 0; i < trailSegs.length; i++) {
+            const seg = trailSegs[i];
+            seg.drawX = x;
+            seg.drawY = y;
+            seg.x = x;
+            seg.y = y;
+            const next = trailSegs[i + 1] || trailSegs[0];
+            x += (next.x - x) * TRAIL_CHAIN_EASE;
+            y += (next.y - y) * TRAIL_CHAIN_EASE;
+          }
+        }
+
+        function setupCanvasSize() {
+          const w = root.clientWidth;
+          const h = root.clientHeight;
+          dpr = Math.max(1, window.devicePixelRatio || 1);
+
+          if (mode === "fallback") {
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            canvas.style.width = w + "px";
+            canvas.style.height = h + "px";
+            if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            return;
+          }
+
+          if (!imgWidth || !imgHeight) return;
+
+          const scale = Math.min(w / imgWidth, h / imgHeight);
+          displayWidth = Math.round(imgWidth * scale);
+          displayHeight = Math.round(imgHeight * scale);
+
+          canvas.width = Math.round(displayWidth * dpr);
+          canvas.height = Math.round(displayHeight * dpr);
+          offscreen.width = canvas.width;
+          offscreen.height = canvas.height;
+          trailMask.width = canvas.width;
+          trailMask.height = canvas.height;
+
+          const offsetX = (w - displayWidth) / 2;
+          const offsetY = (h - displayHeight) / 2;
+
+          imageStage.style.left = offsetX + "px";
+          imageStage.style.top = offsetY + "px";
+          imageStage.style.width = displayWidth + "px";
+          imageStage.style.height = displayHeight + "px";
+
+          canvas.style.left = "0";
+          canvas.style.top = "0";
+          canvas.style.width = displayWidth + "px";
+          canvas.style.height = displayHeight + "px";
+        }
+
+        function drawBase() {
+          if (!ctx || !imgWidth || !imgHeight) return;
+          ctx.save();
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.imageSmoothingEnabled = true;
+          ctx.drawImage(
+            blurImg,
+            0,
+            0,
+            imgWidth,
+            imgHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+          ctx.restore();
+        }
+
+        function handleMove(evt) {
+          const rect = canvas.getBoundingClientRect();
+          const x = (evt.clientX - rect.left) * dpr;
+          const y = (evt.clientY - rect.top) * dpr;
+          lastMouse = { x, y };
+          if (!trailSegs.length) seedTrail(x, y);
+        }
+
+        function drawTrailReveal() {
+          if (!ctx || !offCtx || !trailMaskCtx || !trailSegs.length) return;
+          const baseRadius = Math.min(canvas.width, canvas.height) * 0.11;
+          const featherRatio = 0.5;
+
+          trailMaskCtx.save();
+          trailMaskCtx.setTransform(1, 0, 0, 1, 0, 0);
+          trailMaskCtx.clearRect(0, 0, trailMask.width, trailMask.height);
+
+          let firstBlob = true;
+          for (let i = trailSegs.length - 1; i >= 0; i--) {
+            const seg = trailSegs[i];
+            const t = (trailSegs.length - i) / trailSegs.length;
+            const radius = baseRadius * (0.72 + t * 0.48);
+            const outerRadius = radius + radius * featherRatio;
+            trailMaskCtx.globalCompositeOperation = firstBlob
+              ? "source-over"
+              : "lighter";
+            firstBlob = false;
+            const grad = trailMaskCtx.createRadialGradient(
+              seg.drawX,
+              seg.drawY,
+              radius,
+              seg.drawX,
+              seg.drawY,
+              outerRadius
+            );
+            grad.addColorStop(0, "rgba(255,255,255,1)");
+            grad.addColorStop(1, "rgba(255,255,255,0)");
+            trailMaskCtx.fillStyle = grad;
+            trailMaskCtx.beginPath();
+            trailMaskCtx.arc(seg.drawX, seg.drawY, outerRadius, 0, Math.PI * 2);
+            trailMaskCtx.fill();
+          }
+          trailMaskCtx.restore();
+
+          offCtx.save();
+          offCtx.setTransform(1, 0, 0, 1, 0, 0);
+          offCtx.clearRect(0, 0, offscreen.width, offscreen.height);
+          offCtx.fillStyle = "#ffffff";
+          offCtx.fillRect(0, 0, offscreen.width, offscreen.height);
+          offCtx.drawImage(
+            sharpImg,
+            0,
+            0,
+            imgWidth,
+            imgHeight,
+            0,
+            0,
+            offscreen.width,
+            offscreen.height
+          );
+          offCtx.globalCompositeOperation = "destination-in";
+          offCtx.drawImage(trailMask, 0, 0);
+          offCtx.globalCompositeOperation = "source-over";
+          offCtx.restore();
+
+          ctx.save();
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(
+            blurImg,
+            0,
+            0,
+            imgWidth,
+            imgHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+          ctx.drawImage(offscreen, 0, 0);
+          ctx.restore();
+        }
+
+        function drawFrame() {
+          if (mode === "fallback") {
+            drawFallbackFrame();
+            return;
+          }
+          if (!ctx || !imgWidth || !imgHeight) return;
+          if (!lastMouse || !trailSegs.length) {
+            drawBase();
+            return;
+          }
+          updateTrailChain();
+          drawTrailReveal();
+        }
+
+        function initFallbackNodes() {
+          const w = root.clientWidth || 400;
+          const h = root.clientHeight || 400;
+          fallbackNodes = [];
+          const cx = w * 0.5;
+          const cy = h * 0.48;
+          const count = 88;
+          for (let i = 0; i < count; i++) {
+            const a = (i / count) * Math.PI * 2 + i * 0.15;
+            const r =
+              Math.min(w, h) *
+              (0.12 +
+                Math.abs(Math.sin(a * 3)) * 0.22 +
+                (i % 7) * 0.015);
+            const x = cx + Math.cos(a) * r * (0.85 + (i % 5) * 0.06);
+            const y = cy + Math.sin(a * 1.1) * r * 0.75;
+            fallbackNodes.push({
+              x,
+              y,
+              vx: (Math.random() - 0.5) * 0.35,
+              vy: (Math.random() - 0.5) * 0.35,
+            });
+          }
+        }
+
+        function drawFallbackFrame() {
+          if (!ctx) return;
+          const w = root.clientWidth;
+          const h = root.clientHeight;
+          fallbackT += 0.012;
+          ctx.save();
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          const mx = lastMouse ? lastMouse.x / dpr : w * 0.5;
+          const my = lastMouse ? lastMouse.y / dpr : h * 0.5;
+          const revealR = Math.min(w, h) * 0.18;
+
+          for (let i = 0; i < fallbackNodes.length; i++) {
+            const n = fallbackNodes[i];
+            n.x += n.vx * (0.4 + Math.sin(fallbackT + i * 0.1) * 0.2);
+            n.y += n.vy * (0.4 + Math.cos(fallbackT + i * 0.08) * 0.2);
+            if (n.x < 0 || n.x > w) n.vx *= -1;
+            if (n.y < 0 || n.y > h) n.vy *= -1;
+          }
+
+          ctx.strokeStyle = "rgba(0,0,0,0.12)";
+          ctx.lineWidth = 1;
+          const maxLinks = fallbackNodes.length;
+          for (let i = 0; i < maxLinks; i++) {
+            const a = fallbackNodes[i];
+            for (let j = i + 1; j < maxLinks; j++) {
+              const b = fallbackNodes[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < Math.min(w, h) * 0.09) {
+                const md = Math.hypot(a.x + b.x - 2 * mx, a.y + b.y - 2 * my);
+                const intens = md < revealR ? 0.42 : 0.12;
+                ctx.globalAlpha = intens * (1 - dist / (Math.min(w, h) * 0.09));
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = "#000";
+          for (let i = 0; i < fallbackNodes.length; i++) {
+            const n = fallbackNodes[i];
+            const d = Math.hypot(n.x - mx, n.y - my);
+            const pulse = d < revealR ? 2.4 : 1;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 1.1 * pulse, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.restore();
+        }
+
+        function startFallbackLoop() {
+          mode = "fallback";
+          imgWidth = imgHeight = 0;
+          if (loadingText) loadingText.style.display = "none";
+          initFallbackNodes();
+          setupCanvasSize();
+          window.removeEventListener("resize", handleResize);
+          resizeObserver?.disconnect();
+          resizeObserver = null;
+
+          window.addEventListener("resize", function () {
+            setupCanvasSize();
+            initFallbackNodes();
+          });
+
+          canvas.addEventListener("mousemove", function (evt) {
+            const rect = canvas.getBoundingClientRect();
+            lastMouse = {
+              x: (evt.clientX - rect.left) * dpr,
+              y: (evt.clientY - rect.top) * dpr,
+            };
+          });
+          canvas.addEventListener("mouseleave", function () {
+            lastMouse = null;
+          });
+
+          function loop() {
+            drawFallbackFrame();
+            requestAnimationFrame(loop);
+          }
+          requestAnimationFrame(loop);
+        }
+
+        function tryInitImages() {
+          if (imgLoadedCount < 2) return;
+
+          mode = "images";
+          imgWidth = blurImg.naturalWidth;
+          imgHeight = blurImg.naturalHeight;
+          setupCanvasSize();
+          drawBase();
+          if (loadingText) loadingText.style.display = "none";
+
+          window.addEventListener("resize", handleResize);
+          resizeObserver?.disconnect();
+          if (typeof ResizeObserver !== "undefined") {
+            resizeObserver = new ResizeObserver(handleResize);
+            resizeObserver.observe(root);
+          }
+
+          canvas.addEventListener("mousemove", handleMove);
+          canvas.addEventListener("mouseenter", function (evt) {
+            const rect = canvas.getBoundingClientRect();
+            const mx = (evt.clientX - rect.left) * dpr;
+            const my = (evt.clientY - rect.top) * dpr;
+            seedTrail(mx, my);
+          });
+          canvas.addEventListener("mouseleave", function () {
+            lastMouse = null;
+            trailSegs = [];
+            drawFrame();
+          });
+
+          requestAnimationFrame(function tick() {
+            if (mode !== "images") return;
+            drawFrame();
+            requestAnimationFrame(tick);
+          });
+        }
+
+        let imageOutcomes = 0;
+        function noteImageOutcome() {
+          imageOutcomes++;
+          if (imageOutcomes < 2) return;
+          if (imgLoadedCount >= 2) tryInitImages();
+          else startFallbackLoop();
+        }
+
+        function handleResize() {
+          setupCanvasSize();
+          if (lastMouse && mode === "images") seedTrail(lastMouse.x, lastMouse.y);
+          drawFrame();
+        }
+
+        blurImg.onload = function () {
+          imgLoadedCount += 1;
+          noteImageOutcome();
+        };
+        sharpImg.onload = function () {
+          imgLoadedCount += 1;
+          noteImageOutcome();
+        };
+
+        blurImg.onerror = function () {
+          if (loadingText)
+            loadingText.textContent =
+              "Add emilyblur.png beside index.html — showing fallback wireframe.";
+          noteImageOutcome();
+        };
+        sharpImg.onerror = function () {
+          if (loadingText)
+            loadingText.textContent =
+              "Add emilyunblur.png beside index.html — showing fallback wireframe.";
+          noteImageOutcome();
+        };
+
+        blurImg.src = BLUR_SRC;
+        sharpImg.src = SHARP_SRC;
+      })();
+    </script>
+  </body>
+</html>

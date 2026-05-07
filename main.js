@@ -1,141 +1,99 @@
+/**
+ * Emily Nguyen portfolio — GSAP scroll + micro-interactions
+ * Requires GSAP + ScrollTrigger (loaded before this file).
+ */
 (function () {
-  "use strict";
-
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  /* —— Scroll reveal —— */
-  const revealEls = document.querySelectorAll("[data-reveal]");
+  if (prefersReducedMotion || typeof gsap === "undefined") {
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
+      el.style.opacity = "";
+      el.style.transform = "";
+    });
+    return;
+  }
 
-  revealEls.forEach(function (el) {
-    const delay = el.getAttribute("data-reveal-delay");
-    if (delay != null) {
-      el.style.setProperty("--reveal-delay", delay + "ms");
-    }
+  gsap.registerPlugin(ScrollTrigger);
+
+  const easeOut = "power3.out";
+
+  gsap.utils.toArray("[data-reveal]").forEach(function (el, i) {
+    const delay = Number(el.dataset.revealDelay) || i * 0.06;
+    gsap.fromTo(
+      el,
+      {
+        opacity: 0,
+        y: el.dataset.revealAxis === "x" ? 0 : 32,
+        x: el.dataset.revealAxis === "x" ? 24 : 0,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        duration: 0.95,
+        delay: delay,
+        ease: easeOut,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 88%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
   });
 
-  if (!prefersReducedMotion && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
-        });
-      },
-      { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    );
+  gsap.from(".hero-title-motion", {
+    opacity: 0,
+    x: -22,
+    duration: 1.05,
+    ease: easeOut,
+    delay: 0.05,
+  });
 
-    revealEls.forEach(function (el) {
-      io.observe(el);
-    });
-  } else {
-    revealEls.forEach(function (el) {
-      el.classList.add("is-visible");
-    });
-  }
+  gsap.from(".hero-embed-shell", {
+    opacity: 0,
+    scale: 0.96,
+    y: 20,
+    duration: 1.1,
+    ease: "power2.out",
+    delay: 0.2,
+  });
 
-  /* —— Header scroll state —— */
-  const header = document.querySelector(".site-header");
-  let lastY = window.scrollY;
-
-  function onScrollHeader() {
-    const y = window.scrollY;
-    if (!header) return;
-    header.classList.toggle("is-scrolled", y > 24);
-    lastY = y;
-  }
-
-  window.addEventListener("scroll", onScrollHeader, { passive: true });
-  onScrollHeader();
-
-  /* —— Hero parallax —— */
-  const parallaxEl = document.querySelector("[data-parallax]");
-  const parallaxStrength = parallaxEl
-    ? parseFloat(parallaxEl.getAttribute("data-parallax") || "0.1")
-    : 0;
-
-  if (!prefersReducedMotion && parallaxEl && parallaxStrength) {
-    window.addEventListener(
-      "scroll",
-      function () {
-        const y = window.scrollY;
-        const offset = y * parallaxStrength;
-        parallaxEl.style.transform = "translateY(" + offset + "px)";
-      },
-      { passive: true }
-    );
-  }
-
-  /* —— Mobile nav —— */
-  const toggle = document.querySelector(".nav-toggle");
-  const mobileNav = document.getElementById("mobile-nav");
-
-  if (toggle && mobileNav) {
-    function setMenuOpen(nextOpen) {
-      toggle.setAttribute("aria-expanded", String(nextOpen));
-      toggle.setAttribute("aria-label", nextOpen ? "Close menu" : "Open menu");
-      mobileNav.classList.toggle("is-open", nextOpen);
-      mobileNav.setAttribute("aria-hidden", String(!nextOpen));
-      if (nextOpen) {
-        mobileNav.removeAttribute("inert");
-      } else {
-        mobileNav.setAttribute("inert", "");
+  const footerGrain = document.querySelector(".grain-text");
+  if (footerGrain) {
+    gsap.fromTo(
+      footerGrain,
+      { opacity: 0.85, letterSpacing: "0px" },
+      {
+        opacity: 1,
+        letterSpacing: "-0.06em",
+        scrollTrigger: {
+          trigger: ".site-footer",
+          start: "top 80%",
+          end: "bottom bottom",
+          scrub: true,
+        },
       }
-      document.body.style.overflow = nextOpen ? "hidden" : "";
-    }
+    );
+  }
 
-    toggle.addEventListener("click", function () {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      setMenuOpen(!open);
-    });
+  const filterChips = document.querySelectorAll(".filter-chip");
+  const cards = document.querySelectorAll("[data-category]");
 
-    mobileNav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        setMenuOpen(false);
+  filterChips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      const tag = chip.dataset.filter || "all";
+      filterChips.forEach(function (c) {
+        c.classList.toggle("is-active", c === chip);
+      });
+
+      cards.forEach(function (card) {
+        const cats = (card.dataset.category || "").split(/\s+/);
+        const show = tag === "all" || cats.includes(tag);
+        card.classList.toggle("is-hidden", !show);
       });
     });
-  }
-
-  /* —— Copy email —— */
-  document.querySelectorAll("[data-copy]").forEach(function (btn) {
-    const text = btn.getAttribute("data-copy");
-    const label = btn.querySelector(".copy-btn__label");
-    const done = btn.querySelector(".copy-btn__done");
-
-    btn.addEventListener("click", async function () {
-      if (!text) return;
-      try {
-        await navigator.clipboard.writeText(text);
-        btn.classList.add("is-copied");
-        if (label) label.hidden = true;
-        if (done) done.hidden = false;
-        window.setTimeout(function () {
-          btn.classList.remove("is-copied");
-          if (label) label.hidden = false;
-          if (done) done.hidden = true;
-        }, 2000);
-      } catch {
-        if (label) label.textContent = "Copy failed";
-        window.setTimeout(function () {
-          if (label) label.textContent = "Copy";
-        }, 2000);
-      }
-    });
   });
-
-  /* —— Section scroll progress (subtle background shift) —— */
-  if (!prefersReducedMotion) {
-    const root = document.documentElement;
-    window.addEventListener(
-      "scroll",
-      function () {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const p = max > 0 ? window.scrollY / max : 0;
-        root.style.setProperty("--scroll-p", String(p));
-      },
-      { passive: true }
-    );
-  }
 })();
