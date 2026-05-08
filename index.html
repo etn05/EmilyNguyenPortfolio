@@ -81,14 +81,14 @@
               </div>
             </div>
             <div class="hero-meta">
-              <p class="hero-intro" data-reveal>
-                Hi, I’m Emily! A multidisciplinary designer at NYU blending UX/UI and graphic design to create intuitive digital experiences with strong visual identity and and an emphasis on culture, aesthetics, and usability.
-              </p>
               <div class="hero-links" data-reveal>
                 <a href="mailto:etn6939@nyu.edu">etn6939@nyu.edu</a>
                 <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
-                <a href="#">Resume</a>
+                <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a>
               </div>
+              <p class="hero-intro" data-reveal>
+                Hi, I’m Emily! A multidisciplinary designer at NYU blending UX/UI and graphic design to create intuitive digital experiences with strong visual identity and and an emphasis on culture, aesthetics, and usability.
+              </p>
             </div>
           </div>
         </div>
@@ -103,12 +103,12 @@
           <div class="filter-row" role="toolbar" aria-label="Filter projects">
             <button
               type="button"
-              class="filter-chip is-active"
+              class="filter-chip"
               data-filter="all"
             >
               See All
             </button>
-            <button type="button" class="filter-chip" data-filter="featured">
+            <button type="button" class="filter-chip is-active" data-filter="featured">
               Featured
             </button>
             <button type="button" class="filter-chip" data-filter="graphic">
@@ -141,7 +141,7 @@
               <p class="type-micro">Campaign · Music · Web Design</p>
             </a>
 
-            <a
+            <!-- <a
               class="project-card"
               href="projects/luma.html"
               data-category="ux product"
@@ -157,17 +157,17 @@
               </div>
               <h3 class="type-project-title">Luma</h3>
               <p class="type-micro">Case Study · Behavioral Design</p>
-            </a>
+            </a> -->
 
             <a
               class="project-card"
-              href="projects/identifi.html"
-              data-category="ux product"
+              href="https://etnprojects.framer.website/work/identifi"
+              data-category="ux featured"
               data-reveal
             >
               <div class="project-card-thumb">
                 <img
-                  src="images/placeholder.svg"
+                  src="images/projects/identifi-mockup.png"
                   alt=""
                   width="600"
                   height="450"
@@ -179,23 +179,23 @@
 
             <a
             class="project-card"
-            href="projects/identifi.html"
-            data-category="ux product"
+            href="https://etnprojects.framer.website/work/trackline"
+            data-category="ux featured"
             data-reveal
           >
             <div class="project-card-thumb">
               <img
-                src="images/placeholder.svg"
+                src="images/projects/trackline-mockup.png"
                 alt=""
                 width="600"
                 height="450"
               />
             </div>
-            <h3 class="type-project-title">Identifi</h3>
-            <p class="type-micro">Biometric onboarding flow</p>
+            <h3 class="type-project-title">Trackline</h3>
+            <p class="type-micro">Subway App Resdesign · Case Study</p>
           </a>
 
-          <a
+          <!-- <a
           class="project-card"
           href="projects/identifi.html"
           data-category="ux product"
@@ -212,7 +212,7 @@
           <h3 class="type-project-title">Identifi</h3>
           <p class="type-micro">Biometric onboarding flow</p>
         </a>
-    
+     -->
 
   
       </section>
@@ -225,30 +225,87 @@
           </header>
 
           <div class="gallery-grid">
-            <div class="gallery-cell" data-reveal>
-              <img
-                src="images/gallery/etn.gif"
-                alt=""
-                width="400"
-                height="300"
-              />
+            <div class="gallery-cell gallery-cell--book" data-reveal>
+              <div class="gallery-book" data-gallery-book aria-label="Aphex menu">
+                <button
+                  type="button"
+                  class="gallery-book__open"
+                  data-gallery-book-open
+                  aria-label="Open Aphex menu larger"
+                >
+                  <img
+                    class="gallery-book__page"
+                    src="images/gallery/aphex_menu/1.png"
+                    alt="Aphex menu, page 1 of 4."
+                    width="800"
+                    height="800"
+                    decoding="async"
+                  />
+                </button>
+                <button
+                  type="button"
+                  class="gallery-book__arrow gallery-book__arrow--prev"
+                  data-gallery-book-prev
+                  aria-label="Previous page"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  class="gallery-book__arrow gallery-book__arrow--next"
+                  data-gallery-book-next
+                  aria-label="Next page"
+                >
+                  ›
+                </button>
+              </div>
             </div>
             <div class="gallery-cell" data-reveal>
-              <img
-                src="images/gallery/aphex.png"
-                alt=""
-                width="400"
-                height="300"
-              />
+              <button
+                type="button"
+                class="gallery-tile"
+                data-lightbox-src="images/gallery/etn.gif"
+                aria-label="View larger"
+              >
+                <img
+                  src="images/gallery/etn.gif"
+                  alt=""
+                  width="400"
+                  height="300"
+                />
+              </button>
             </div>
             <div class="gallery-cell" data-reveal>
-              <img
-                src="images/gallery/peyton.jpeg"
-                alt=""
-                width="400"
-                height="300"
-              />
+              <button
+                type="button"
+                class="gallery-tile"
+                data-lightbox-src="images/gallery/peyton.jpeg"
+                aria-label="View larger"
+              >
+                <img
+                  src="images/gallery/peyton.jpeg"
+                  alt=""
+                  width="400"
+                  height="300"
+                />
+              </button>
             </div>
+            <div class="gallery-cell" data-reveal>
+              <button
+                type="button"
+                class="gallery-tile"
+                data-lightbox-src="images/gallery/audion poster.png"
+                aria-label="View larger"
+              >
+                <img
+                  src="images/gallery/audion poster.png"
+                  alt=""
+                  width="400"
+                  height="300"
+                />
+              </button>
+            </div>
+           
             <!-- <div class="gallery-cell gallery-wide" data-reveal>
               <img
                 src="images/placeholder.svg"
@@ -275,13 +332,51 @@
                   You can find me at NYU majoring in Integrated Design and Media at the Tandon School of Engineering and graphic designing at Pulse Records!
                 </p>
               </div>
-              <nav class="about-links" aria-label="Elsewhere">
-                <a href="mailto:etn6939@nyu.edu">Email</a>
-                <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
-                <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a>
-                <a href="https://github.com/etn05">GitHub</a>
-                <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels">Are.na</a>
-              </nav>
+              <div
+                class="about-links-3d"
+                id="about-links-3d"
+                aria-label="Elsewhere"
+              >
+                <div class="about-links-scene">
+                  <div class="about-links-spin" data-about-spin>
+                    <nav class="about-links-ring" aria-label="Social and contact links">
+                      <a
+                        href="mailto:etn6939@nyu.edu"
+                        class="about-link-node"
+                        style="--i: 0"
+                        >Email</a>
+                      <a
+                        href="https://www.linkedin.com/in/emilythienanhnguyen"
+                        class="about-link-node"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        style="--i: 1"
+                        >LinkedIn</a>
+                      <a
+                        href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view"
+                        class="about-link-node"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        style="--i: 2"
+                        >Resume</a>
+                      <a
+                        href="https://github.com/etn05"
+                        class="about-link-node"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        style="--i: 3"
+                        >GitHub</a>
+                      <a
+                        href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels"
+                        class="about-link-node"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        style="--i: 4"
+                        >Are.na</a>
+                    </nav>
+                  </div>
+                </div>
+              </div>
             </div>
             <figure class="about-photo" data-reveal>
               <img
@@ -316,6 +411,55 @@
       </div>
       <p class="footer-credit">Designed/Coded by Emily Nguyen &copy; 2026</p>
     </footer>
+
+    <div
+      id="gallery-lightbox"
+      class="lightbox"
+      aria-hidden="true"
+    >
+      <button
+        type="button"
+        class="lightbox__backdrop"
+        data-lightbox-close
+        aria-label="Close"
+      ></button>
+      <div
+        class="lightbox__content"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Enlarged gallery image"
+      >
+        <button
+          type="button"
+          class="lightbox__close"
+          data-lightbox-close
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <div class="lightbox__stage">
+          <button
+            type="button"
+            class="lightbox__nav lightbox__nav--prev"
+            data-lightbox-prev
+            aria-label="Previous"
+            hidden
+          >
+            ‹
+          </button>
+          <img class="lightbox__img" alt="" decoding="async" />
+          <button
+            type="button"
+            class="lightbox__nav lightbox__nav--next"
+            data-lightbox-next
+            aria-label="Next"
+            hidden
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
