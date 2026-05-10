@@ -33,7 +33,7 @@
 
       .site-footer {
         width: 100%;
-        background: #000
+        background: #000;
         padding: clamp(2rem, 6vw, 3.5rem) var(--pad-x);
       }
 
@@ -50,17 +50,13 @@
         margin: 0;
       }
 
-      .footer-logo {
-        display: block;
-        width: clamp(220px, 38vw, 520px);
-        height: auto;
-      }
-
-      .footer-logo-placeholder {
-        width: clamp(220px, 38vw, 520px);
-        /* Approximate wordmark aspect so the layout space matches the image. */
-        aspect-ratio: 6 / 1;
-        background: transparent;
+      .footer-wordmark {
+        display: inline-block;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.09em;
+        font-size: clamp(2.2rem, 6.5vw, 5.4rem);
+        line-height: 0.92;
       }
 
       .footer-links {
@@ -107,7 +103,7 @@
     <footer class="site-footer">
       <div class="footer-row">
         <p class="footer-title">
-          <div class="footer-logo-placeholder" aria-hidden="true"></div>
+          <span class="footer-wordmark">Emily Nguyen</span>
         </p>
         <nav class="footer-links" aria-label="Footer links">
           <a href="mailto:etn6939@nyu.edu">Email</a>
