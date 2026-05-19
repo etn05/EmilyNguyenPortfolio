@@ -363,6 +363,27 @@
         "translate3d(" + x + "px, " + y + "px, 0) translate(-50%, -50%)";
     }
 
+    function setCursorPressed(pressed) {
+      cursor.classList.toggle("is-pressing", pressed);
+    }
+
+    function onPointerDown(e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      setCursorPressed(true);
+    }
+
+    function onPointerUp(e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      setCursorPressed(false);
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("blur", function () {
+      setCursorPressed(false);
+    });
+
     function scheduleCursorPaint() {
       if (rafId !== null) return;
       rafId = window.requestAnimationFrame(paintCursor);
