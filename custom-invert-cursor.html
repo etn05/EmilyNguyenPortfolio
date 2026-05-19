@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom invert cursor — reference</title>
+    <style>
+      @media (hover: hover) and (pointer: fine) {
+        body,
+        body * {
+          cursor: none !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: system-ui, sans-serif;
+        background: #fff;
+        color: #111;
+        padding: 3rem;
+      }
+
+      .demo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgb(255, 255, 255);
+        mix-blend-mode: difference;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .cursor {
+          display: flex;
+        }
+      }
+
+      .cursor.cursor--large {
+        width: 60px;
+        height: 60px;
+      }
+
+      .cursor.email-mode {
+        width: 110px;
+        height: 70px;
+        border-radius: 100px;
+        background: #000;
+        mix-blend-mode: normal;
+      }
+
+      .cursor-text {
+        opacity: 0;
+        font-size: 17px;
+        font-weight: 200;
+        transition: opacity 0.2s ease;
+      }
+
+      .cursor-text.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Invert cursor demo</h1>
+    <p>Move the mouse over links and buttons below.</p>
+    <div class="demo">
+      <a href="#">Regular link</a>
+      <button type="button">Button</button>
+      <a class="email-link" href="mailto:hello@example.com">Email link</a>
+    </div>
+
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-text"></span>
+    </div>
+
+    <script>
+      (function () {
+        const cursor = document.querySelector(".cursor");
+        if (!cursor) return;
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+        document.addEventListener("mousemove", function (e) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+        });
+
+        const cursorText = document.querySelector(".cursor-text");
+
+        document.querySelectorAll(".email-link").forEach(function (emailLink) {
+          emailLink.addEventListener("mouseenter", function () {
+            cursor.classList.remove("cursor--large");
+            cursor.classList.add("email-mode");
+            window.setTimeout(function () {
+              if (cursorText) {
+                cursorText.textContent = "Email me!";
+                cursorText.classList.add("show");
+              }
+            }, 180);
+          });
+          emailLink.addEventListener("mouseleave", function () {
+            if (cursorText) {
+              cursorText.classList.remove("show");
+              window.setTimeout(function () {
+                cursorText.textContent = "";
+              }, 150);
+            }
+            cursor.classList.remove("email-mode");
+          });
+        });
+
+        document
+          .querySelectorAll("a:not(.email-link), button, .btn, .project-card")
+          .forEach(function (el) {
+            el.addEventListener("mouseenter", function () {
+              cursor.classList.add("cursor--large");
+            });
+            el.addEventListener("mouseleave", function () {
+              cursor.classList.remove("cursor--large");
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>
