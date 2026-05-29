@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emily Nguyen Nav</title>
+    <title>Emily Nguyen Header</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +15,7 @@
         --bg: rgba(255, 255, 255, 0.92);
         --fg: #0a0a0a;
         --rule: rgba(0, 0, 0, 0.08);
-        --page-pad-x: clamp(1.5rem, 5vw, 4rem);
+        --page-pad-x: clamp(1rem, 5vw, 4rem);
         --nav-gap: clamp(1.5rem, 4vw, 3rem);
         --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
       }
@@ -50,16 +50,11 @@
       a {
         color: inherit;
         text-decoration: none;
-        transition: opacity 0.2s var(--ease-out);
       }
 
-      a:hover {
-        opacity: 0.65;
-      }
-
-      /* Matches index.html .site-header (styles.css) */
       .site-header {
         width: 100%;
+        min-height: 68px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -73,10 +68,16 @@
 
       .logo-mark {
         flex-shrink: 0;
+        color: inherit;
         line-height: 1;
         font-size: clamp(1.75rem, 4vw, 2.35rem);
         font-family: Georgia, "Times New Roman", serif;
         font-weight: 500;
+        transition: opacity 0.2s var(--ease-out);
+      }
+
+      .logo-mark:hover {
+        opacity: 0.65;
       }
 
       .nav-links {
@@ -84,7 +85,7 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: flex-end;
-        gap: clamp(1rem, 3vw, 2rem);
+        gap: clamp(0.75rem, 3vw, 2rem);
         font-size: clamp(0.82rem, 1.5vw + 0.35rem, 0.95rem);
         font-weight: 400;
         letter-spacing: 0;
@@ -102,7 +103,6 @@
       .nav-links a:hover {
         opacity: 1;
         background-size: 100% 1px;
-        text-decoration: none;
       }
 
       @media (max-width: 560px) {
@@ -124,20 +124,21 @@
   <body>
     <header class="site-header">
       <a
-        href="index.html"
+        href="/"
         class="logo-mark"
         aria-label="Home — Emily Nguyen"
         target="_top"
       >天</a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="index.html#projects" target="_top">Projects</a>
-        <a href="index.html#gallery" target="_top">Gallery</a>
+        <a href="/#projects" target="_top">Projects</a>
+        <a href="/#gallery" target="_top">Gallery</a>
         <a
           href="https://medium.com/@emilytnguyen/what-ai-has-really-taken-from-design-rip-internet-slop-73c758ea6c2a"
           rel="noopener noreferrer"
           target="_blank"
-        >Blog</a>
-        <a href="about.html" target="_top">About</a>
+          >Blog</a
+        >
+        <a href="/about.html" target="_top">About</a>
       </nav>
     </header>
   </body>

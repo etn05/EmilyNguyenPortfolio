@@ -61,9 +61,9 @@
     delay: 0.28,
   });
 
-  const footerWordmark = document.querySelector(".footer-wordmark");
-  if (footerWordmark) {
-    gsap.from(footerWordmark, {
+  const footerDisplay = document.querySelector(".footer-display__text");
+  if (footerDisplay) {
+    gsap.from(footerDisplay, {
       opacity: 0,
       y: 18,
       duration: 1,
@@ -462,5 +462,50 @@
     document.addEventListener("DOMContentLoaded", initCustomCursor);
   } else {
     initCustomCursor();
+  }
+})();
+
+(function () {
+  function fitFooterWordmark() {
+    const container = document.querySelector(".footer-display");
+    const text = document.querySelector(".footer-display__text");
+    if (!container || !text) return;
+
+    const fitPad = 14;
+    const maxWidth = Math.max(0, container.clientWidth - fitPad * 2);
+    if (!maxWidth) return;
+
+    let lo = 8;
+    let hi = 1200;
+    while (lo < hi) {
+      const mid = Math.ceil((lo + hi) / 2);
+      text.style.fontSize = mid + "px";
+      const textWidth = text.getBoundingClientRect().width;
+      if (textWidth > maxWidth) hi = mid - 1;
+      else lo = mid;
+    }
+
+    text.style.fontSize = lo + "px";
+  }
+
+  function initFooterWordmarkFit() {
+    fitFooterWordmark();
+
+    const container = document.querySelector(".footer-display");
+    if (container && typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(fitFooterWordmark).observe(container);
+    } else {
+      window.addEventListener("resize", fitFooterWordmark);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitFooterWordmark);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFooterWordmarkFit);
+  } else {
+    initFooterWordmarkFit();
   }
 })();
