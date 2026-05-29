@@ -44,39 +44,36 @@
     );
   });
 
-  gsap.from(".hero-title-motion", {
-    opacity: 0,
-    x: -22,
-    duration: 1.05,
-    ease: easeOut,
-    delay: 0.05,
-  });
-
   gsap.from(".hero-embed-shell", {
     opacity: 0,
-    scale: 0.96,
-    y: 20,
-    duration: 1.1,
+    scale: 0.98,
+    y: 28,
+    duration: 1.15,
     ease: "power2.out",
-    delay: 0.2,
+    delay: 0.12,
   });
 
-  const footerGrain = document.querySelector(".grain-text");
-  if (footerGrain) {
-    gsap.fromTo(
-      footerGrain,
-      { opacity: 0.85, letterSpacing: "0px" },
-      {
-        opacity: 1,
-        letterSpacing: "-0.06em",
-        scrollTrigger: {
-          trigger: ".site-footer",
-          start: "top 80%",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      }
-    );
+  gsap.from(".hero-gif-shell", {
+    opacity: 0,
+    y: 24,
+    duration: 1.05,
+    ease: easeOut,
+    delay: 0.28,
+  });
+
+  const footerWordmark = document.querySelector(".footer-wordmark");
+  if (footerWordmark) {
+    gsap.from(footerWordmark, {
+      opacity: 0,
+      y: 18,
+      duration: 1,
+      ease: easeOut,
+      scrollTrigger: {
+        trigger: ".site-footer",
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
   }
 })();
 
@@ -104,51 +101,6 @@
   const activeChip = document.querySelector(".filter-chip.is-active");
   if (activeChip) {
     applyProjectFilter(activeChip.dataset.filter || "all");
-  }
-
-  const aboutSection = document.getElementById("about-teaser");
-  const wrap3d = document.getElementById("about-links-3d");
-  const spin = document.querySelector("[data-about-spin]");
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (wrap3d && spin) {
-    if (prefersReducedMotion) {
-      wrap3d.classList.add("is-reduced");
-    } else {
-      let angle = 0;
-      let lastT = performance.now();
-      const AUTO_DPS = 22;
-      let scrollBoost = 0;
-
-      function tick(now) {
-        const dt = Math.min(0.05, (now - lastT) / 1000);
-        lastT = now;
-        scrollBoost *= Math.exp(-dt * 2.2);
-        const hoveringLink = !!wrap3d.querySelector(".about-link-node:hover");
-        const focusingLink = !!wrap3d.querySelector(
-          ".about-link-node:focus-visible"
-        );
-        const pause = hoveringLink || focusingLink;
-        wrap3d.classList.toggle("is-hover-paused", pause);
-        const speed = pause ? 0 : AUTO_DPS + scrollBoost;
-        angle += speed * dt;
-        spin.style.transform = "rotateY(" + angle + "deg)";
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-
-      if (aboutSection) {
-        aboutSection.addEventListener(
-          "wheel",
-          function (e) {
-            scrollBoost += e.deltaY * 0.045;
-          },
-          { passive: true }
-        );
-      }
-    }
   }
 })();
 

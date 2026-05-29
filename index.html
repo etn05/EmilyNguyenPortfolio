@@ -26,35 +26,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      focusable="false"
-      width="0"
-      height="0"
-      style="position: absolute"
-    >
-      <defs>
-        <filter id="footer-grain" x="-35%" y="-35%" width="170%" height="170%">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.75"
-            numOctaves="3"
-            stitchTiles="stitch"
-            seed="91"
-            result="noise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="14"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </defs>
-    </svg>
-
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -71,11 +42,11 @@
     </header>
 
     <main id="main">
-      <section class="section hero">
+      <section class="section hero hero--editorial" aria-labelledby="hero-heading">
         <div class="hero-layout">
           <div class="hero-copy">
             <div class="hero-title-wrap" data-reveal data-reveal-delay="0">
-              <h1 class="sr-only">Emily Nguyen</h1>
+              <h1 class="sr-only" id="hero-heading">Emily Nguyen</h1>
               <div class="hero-media-row">
                 <div
                   class="hero-embed-shell hero-embed-shell--title"
@@ -98,14 +69,18 @@
               </div>
             </div>
             <div class="hero-meta">
-              <div class="hero-links" data-reveal>
-                <a class="email-link" href="mailto:etn6939@nyu.edu">etn6939@nyu.edu</a>
-                <!-- <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a> -->
-                <!-- <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a> -->
+              <div class="hero-meta__aside" data-reveal data-reveal-delay="0.1">
+                <p class="meta-label">Contact</p>
+                <div class="hero-links">
+                  <a class="email-link" href="mailto:etn6939@nyu.edu">etn6939@nyu.edu</a>
+                </div>
               </div>
-              <p class="hero-intro" data-reveal>
-                Hi, I’m Emily! A multidisciplinary designer at NYU blending UX/UI and graphic design to create intuitive digital experiences with strong visual identity and and an emphasis on culture, aesthetics, and usability.
-              </p>
+              <div class="hero-meta__intro" data-reveal data-reveal-delay="0.18">
+                <p class="meta-label">Intro</p>
+                <p class="hero-intro">
+                  Hi, I’m Emily — a multidisciplinary designer at NYU blending UX/UI and graphic design to build intuitive digital experiences with strong visual identity, and an emphasis on culture, aesthetics, and usability.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -255,7 +230,11 @@
         <div class="section__inner">
           <header class="section-head">
             <h2 id="gallery-heading" class="type-section">(Gallery)</h2>
-            <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/stuff-i-ve-made-bghichjs1zi" class="btn-quiet">See More</a>
+            <a
+              href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/stuff-i-ve-made-bghichjs1zi"
+              class="filter-chip filter-chip--cta"
+              rel="noopener noreferrer"
+              >See more<span class="filter-chip__arrow" aria-hidden="true"> →</span></a>
           </header>
 
           <div class="gallery-grid">
@@ -367,98 +346,78 @@
         </div>
       </section>
 
-      <section class="section" id="about-teaser">
-        <div class="section__inner">
+      <section class="section about-section" id="about-teaser" aria-labelledby="about-heading">
+        <div class="section__inner about-spread">
           <header class="section-head">
             <h2 id="about-heading" class="type-section">(About)</h2>
-            <a href="about.html" class="btn-quiet">Read More</a>
           </header>
 
-          <div class="about-layout">
-            <div data-reveal>
-              <div class="about-text">
-                <p>
-                  You can find me at NYU majoring in Integrated Design and Media at the Tandon School of Engineering and graphic designing at Pulse Records!
-                </p>
-              </div>
-              <div
-                class="about-links-3d"
-                id="about-links-3d"
-                aria-label="Elsewhere"
-              >
-                <div class="about-links-scene">
-                  <div class="about-links-spin" data-about-spin>
-                    <nav class="about-links-ring" aria-label="Social and contact links">
-                      <a
-                        class="about-link-node email-link"
-                        href="mailto:etn6939@nyu.edu"
-                        style="--i: 0"
-                        >Email</a>
-                      <a
-                        href="https://www.linkedin.com/in/emilythienanhnguyen"
-                        class="about-link-node"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        style="--i: 1"
-                        >LinkedIn</a>
-                      <a
-                        href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view"
-                        class="about-link-node"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        style="--i: 2"
-                        >Resume</a>
-                      <a
-                        href="https://github.com/etn05"
-                        class="about-link-node"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        style="--i: 3"
-                        >GitHub</a>
-                      <a
-                        href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels"
-                        class="about-link-node"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        style="--i: 4"
-                        >Are.na</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <figure class="about-photo" data-reveal>
+          <div class="about-spread__stage">
+            <figure class="about-spread__figure" data-reveal>
               <img
                 src="images/aboutemily.png"
-                alt="Portrait placeholder"
+                alt="Portrait of Emily Nguyen"
                 width="320"
                 height="420"
               />
             </figure>
+
+            <div class="about-spread__panel">
+              <div class="about-spread__copy" data-reveal>
+                <p>
+                  Designer interested in products, visuals, music, technology, and the internet!
+                </p>
+                <p>
+                  Studying Integrated Design &amp; Media at NYU. Working on the creative team at Pulse Records.
+                </p>
+                <p class="about-spread__more">
+                  <a href="about.html" class="about-spread__artifact"
+                    >See artifact<span class="about-spread__artifact-arrow" aria-hidden="true"> →</span></a>
+                </p>
+              </div>
+
+              <nav class="about-spread__connect" aria-label="Contact">
+                <p class="meta-label">Contact</p>
+                <ol class="about-spread__links">
+                <li><a class="email-link" href="mailto:etn6939@nyu.edu">Email</a></li>
+                <li>
+                  <a href="https://www.linkedin.com/in/emilythienanhnguyen" rel="noopener noreferrer">LinkedIn</a>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view" rel="noopener noreferrer">Resume</a>
+                </li>
+                <li><a href="https://github.com/etn05" rel="noopener noreferrer">GitHub</a></li>
+                <li>
+                  <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels" rel="noopener noreferrer">Are.na</a>
+                </li>
+              </ol>
+              </nav>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="footer-row">
-        <p class="footer-title">
-          <img
-            src="images/footer.png"
-            alt="Emily Nguyen"
-            class="footer-logo"
-            loading="lazy"
-          />
-        </p>
+      <div class="footer-inner">
+        <div class="footer-primary">
+          <p class="footer-wordmark">Emily Nguyen</p>
+          <p class="footer-tagline">
+            Multidisciplinary Designer · Integrated Design &amp; Media, NYU
+          </p>
+        </div>
         <nav class="footer-links" aria-label="Footer links">
           <a class="email-link" href="mailto:etn6939@nyu.edu">Email</a>
-          <a href="www.linkedin.com/in/emilythienanhnguyen">LinkedIn</a>
-          <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view">Resume</a>
-          <a href="https://github.com/etn05">GitHub</a>
-          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels">Are.na</a>
+          <a href="https://www.linkedin.com/in/emilythienanhnguyen" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view" rel="noopener noreferrer">Resume</a>
+          <a href="https://github.com/etn05" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels" rel="noopener noreferrer">Are.na</a>
         </nav>
       </div>
-      <p class="footer-credit">Designed/Coded by Emily Nguyen &copy; 2026</p>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Emily Nguyen</p>
+        <p class="footer-credit">Design &amp; code</p>
+      </div>
     </footer>
 
     <div
