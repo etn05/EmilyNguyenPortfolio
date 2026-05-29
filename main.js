@@ -157,6 +157,7 @@
   if (!lightboxEl) return;
 
   const lightboxImg = lightboxEl.querySelector(".lightbox__img");
+  const lightboxCaption = lightboxEl.querySelector(".lightbox__caption");
   const btnPrev = lightboxEl.querySelector("[data-lightbox-prev]");
   const btnNext = lightboxEl.querySelector("[data-lightbox-next]");
   const closeTargets = lightboxEl.querySelectorAll("[data-lightbox-close]");
@@ -170,6 +171,49 @@
     "images/gallery/aphex_menu/4.png",
   ];
 
+  const APHEX_CAPTIONS = [
+    "“Menu” of Aphex Twin songs. 2025.",
+    "",
+    "",
+    "",
+  ];
+
+  const GALLERY_CAPTION_HTML = {
+    // "images/gallery/etn.gif":
+    //   "Stills from a montage film. Still and Moving Images, 2025.",
+    "images/gallery/peyton.jpeg":
+      "Stills from a montage film. Still and Moving Images NYU. 2025.",
+    "images/gallery/audion poster.png":
+      'Poster for the conceptual brand Audion. <a href="https://www.are.na/block/44726318" target="_blank" rel="noopener noreferrer">View brand guidelines</a>. 2026.',
+    "images/gallery/deathofdesign.jpg":
+      'Poster for an essay on AI’s impact on design. <a href="https://medium.com/@emilytnguyen/what-ai-has-really-taken-from-design-rip-internet-slop-73c758ea6c2a" target="_blank" rel="noopener noreferrer">Read on Medium</a>. 2026.',
+  };
+
+  function captionForSrc(src) {
+    return GALLERY_CAPTION_HTML[src] || "";
+  }
+
+  function captionsForSrcs(srcs) {
+    return srcs.map(function (src) {
+      return captionForSrc(src);
+    });
+  }
+
+  function updateLightboxCaption() {
+    if (!lightboxCaption) return;
+    const html =
+      state.captions && state.captions.length
+        ? state.captions[state.index] || ""
+        : "";
+    if (html) {
+      lightboxCaption.innerHTML = html;
+      lightboxCaption.hidden = false;
+    } else {
+      lightboxCaption.innerHTML = "";
+      lightboxCaption.hidden = true;
+    }
+  }
+
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
@@ -179,6 +223,7 @@
     index: 0,
     lastFocus: null,
     altSingle: "",
+    captions: null,
   };
 
   function renderLightbox() {
@@ -197,6 +242,7 @@
     } else {
       lightboxImg.alt = state.altSingle || "";
     }
+    updateLightboxCaption();
   }
 
   function openLightbox(opts) {
@@ -208,6 +254,7 @@
     );
     state.altSingle =
       state.srcs.length > 1 ? "" : opts.altSingle || "";
+    state.captions = opts.captions || captionsForSrcs(opts.srcs);
     lightboxEl.classList.add("is-open");
     lightboxEl.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -221,7 +268,12 @@
     lightboxEl.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     state.srcs = null;
+    state.captions = null;
     lightboxImg.removeAttribute("src");
+    if (lightboxCaption) {
+      lightboxCaption.innerHTML = "";
+      lightboxCaption.hidden = true;
+    }
     if (state.lastFocus && typeof state.lastFocus.focus === "function") {
       state.lastFocus.focus();
     }
@@ -274,10 +326,14 @@
         if (!src) return;
         const img = tile.querySelector("img");
         const altSingle = img ? img.getAttribute("alt") || "" : "";
+        const captionAttr = tile.getAttribute("data-lightbox-caption");
         openLightbox({
           srcs: [src],
           index: 0,
           altSingle: altSingle,
+          captions: [
+            captionAttr !== null ? captionAttr : captionForSrc(src),
+          ],
         });
       });
     }
@@ -329,6 +385,7 @@
         openLightbox({
           srcs: APHEX_PAGES.slice(),
           index: previewIndex,
+          captions: APHEX_CAPTIONS.slice(),
         });
       });
 
