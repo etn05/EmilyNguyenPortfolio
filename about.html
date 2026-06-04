@@ -25,7 +25,9 @@
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="about-page-body">
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <header class="site-header">
       <a href="index.html" class="logo-mark" aria-label="Home — Emily Nguyen">天</a>
       <nav class="nav-links" aria-label="Primary">
@@ -39,30 +41,629 @@
       </nav>
     </header>
 
-    <main class="section project-page">
-      <div class="section__inner about-empty">
-        <p class="type-micro" style="font-size: 1rem; color: var(--fg)">
-          This page is intentionally empty for now.
+    <div class="about-wip" aria-live="polite">
+      <div class="about-wip__track">
+        <span class="about-wip__text"
+          >Work in progress — more soon &nbsp;·&nbsp; Work in progress — more soon
+          &nbsp;·&nbsp;</span
+        >
+        <span class="about-wip__text" aria-hidden="true"
+          >Work in progress — more soon &nbsp;·&nbsp; Work in progress — more soon
+          &nbsp;·&nbsp;</span
+        >
+      </div>
+    </div>
+
+    <main id="main" class="about-page">
+      <div class="about-page__inner">
+        <header class="about-page__head" data-reveal>
+          <div class="about-page__intro">
+            <figure class="about-page__portrait-wrap">
+              <img
+                class="about-page__portrait"
+                src="images/aboutemily.png"
+                alt="Emily Nguyen"
+                width="112"
+                height="140"
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+            <div class="about-page__intro-copy">
+              <p class="type-section about-page__title">(About)</p>
+              <p class="about-page__lede">
+                Page still a WIP! Tap a card to see what's up.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <section class="about-facts" aria-label="Quick facts">
+          <ul class="about-facts__grid">
+            <li data-reveal>
+              <button
+                type="button"
+                class="about-fact is-active"
+                data-fact
+                aria-pressed="true"
+              >
+                <span class="about-fact__label meta-label">Name</span>
+                <span class="about-fact__value">Emily</span>
+              </button>
+            </li>
+            <li data-reveal>
+              <button type="button" class="about-fact" data-fact aria-pressed="false">
+                <span class="about-fact__label meta-label">Sign</span>
+                <span class="about-fact__value"
+                  >Cancer <span class="about-fact__sign" aria-hidden="true">♋︎</span></span
+                >
+              </button>
+            </li>
+            <li data-reveal>
+              <button type="button" class="about-fact" data-fact aria-pressed="false">
+                <span class="about-fact__label meta-label">Currently</span>
+                <span class="about-fact__value"
+                  >Creative team @ Pulse Records</span
+                >
+              </button>
+            </li>
+            <li data-reveal>
+              <a
+                class="about-fact about-fact--link about-fact--site"
+                href="https://www.webdesignmuseum.org"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span class="about-fact__label meta-label">Favorite Site</span>
+                <span class="about-fact__value">Web Design Museum</span>
+                <span class="about-fact__sub">webdesignmuseum.org →</span>
+              </a>
+            </li>
+            <li data-reveal>
+              <a
+                class="about-fact about-fact--link about-fact--song"
+                href="https://www.youtube.com/watch?v=qV91x2YT9zI"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span class="about-fact__label meta-label">On Repeat</span>
+                <span class="about-fact__value"
+                  >All I Did Was Dream Of You</span
+                >
+                <span class="about-fact__sub"
+                  >beabadoobee &amp; The Marías · YouTube →</span
+                >
+                <span class="about-fact__bars" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="about-facts__hint type-micro" data-reveal>
+            <span id="about-fact-detail"
+              >Emily — multidisciplinary designer, Integrated Design &amp; Media @ NYU.</span
+            >
+          </p>
+        </section>
+
+        <section class="about-freetime" aria-labelledby="about-freetime-heading" data-reveal>
+          <h2 id="about-freetime-heading" class="meta-label">Free time</h2>
+          <p class="about-freetime__lede">
+            Off the clock I gather references on
+            <a
+              class="about-freetime__arena"
+              href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Are.na</a
+            >, play guitar, and mess around with code. (See below)
+          </p>
+          <div class="about-play">
+            <div class="about-play__tabs" role="tablist" aria-label="Code sketches">
+              <button
+                type="button"
+                class="about-play__tab is-active"
+                role="tab"
+                id="about-tab-game"
+                aria-selected="true"
+                aria-controls="about-panel-game"
+                data-play-tab="game"
+              >
+                Eliminate Your Evil Exes Game
+              </button>
+              <button
+                type="button"
+                class="about-play__tab"
+                role="tab"
+                id="about-tab-sketch"
+                aria-selected="false"
+                aria-controls="about-panel-sketch"
+                data-play-tab="sketch"
+              >
+                Cool Sketch
+              </button>
+            </div>
+            <div
+              class="about-play__panel is-active"
+              id="about-panel-game"
+              role="tabpanel"
+              aria-labelledby="about-tab-game"
+              data-play-panel="game"
+            >
+              <p class="about-play__caption type-micro">
+                A silly p5.js game about ex-boyfriends —
+                <a
+                  href="https://editor.p5js.org/etn05/full/QBYdYNfmO"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >open in editor →</a
+                >
+              </p>
+              <div class="about-play__frame">
+                <iframe
+                  src="https://editor.p5js.org/etn05/full/QBYdYNfmO"
+                  title="Evil ex-boyfriends p5.js game"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                ></iframe>
+              </div>
+            </div>
+            <div
+              class="about-play__panel"
+              id="about-panel-sketch"
+              role="tabpanel"
+              aria-labelledby="about-tab-sketch"
+              data-play-panel="sketch"
+              hidden
+            >
+              <p class="about-play__caption type-micro">
+                A quick generative sketch —
+                <a
+                  href="https://editor.p5js.org/etn05/full/2mLPntUWK"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >open in editor →</a
+                >
+              </p>
+              <div class="about-play__frame">
+                <iframe
+                  data-src="https://editor.p5js.org/etn05/full/2mLPntUWK"
+                  title="p5.js fun sketch"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-story" aria-labelledby="about-story-heading" data-reveal>
+          <h2 id="about-story-heading" class="meta-label">Bio</h2>
+          <div class="about-story__layout">
+            <nav class="about-story__nav" aria-label="Bio chapters">
+              <a href="#about-chapter-growing" class="about-story__nav-link is-active" data-chapter-link>
+                <span class="about-story__nav-num">01</span>
+                <span class="about-story__nav-title">Growing up</span>
+              </a>
+              <a href="#about-chapter-design" class="about-story__nav-link" data-chapter-link>
+                <span class="about-story__nav-num">02</span>
+                <span class="about-story__nav-title">Getting into design</span>
+              </a>
+              <a href="#about-chapter-work" class="about-story__nav-link" data-chapter-link>
+                <span class="about-story__nav-num">03</span>
+                <span class="about-story__nav-title">How I work</span>
+              </a>
+              <a href="#about-chapter-now" class="about-story__nav-link" data-chapter-link>
+                <span class="about-story__nav-num">04</span>
+                <span class="about-story__nav-title">Now</span>
+              </a>
+            </nav>
+
+            <div class="about-story__articles">
+              <article
+                id="about-chapter-growing"
+                class="about-story__chapter"
+                data-chapter
+                data-reveal
+              >
+                <p class="about-story__chapter-num" aria-hidden="true">01</p>
+                <h3 class="about-story__chapter-title">Growing up</h3>
+                <p class="about-story__text">
+                  As a kid, I always loved making things— journals, scrapbooks, planners. When school
+                  moved onto screens and slide decks, that love didn't go away. I'd obsess over
+                  layouts, color, and type for every presentation. Even then I sensed what I couldn't
+                  name yet:
+                  <em>how information is structured and presented changes how people feel about it.</em>
+                </p>
+              </article>
+              <article
+                id="about-chapter-design"
+                class="about-story__chapter"
+                data-chapter
+                data-reveal
+              >
+                <p class="about-story__chapter-num" aria-hidden="true">02</p>
+                <h3 class="about-story__chapter-title">Getting into design</h3>
+                <p class="about-story__text">
+                  A UX/UI summer program sophomore year of high school reframed everything. An
+                  instructor said I'd already been designing—for years—in Google Slides, Instagram
+                  stories, even how I organized my scrapbooks. After my first real case study, I knew
+                  this was what I wanted to do. I'm still hungry to learn; every project feels like a
+                  new puzzle.
+                </p>
+              </article>
+              <article
+                id="about-chapter-work"
+                class="about-story__chapter"
+                data-chapter
+                data-reveal
+              >
+                <p class="about-story__chapter-num" aria-hidden="true">03</p>
+                <h3 class="about-story__chapter-title">How I work</h3>
+                <p class="about-story__text">
+                  Design isn't about making things "look nice." It's empathy—the spacing, the button
+                  placement, the tedious details. I love building from zero to one: an idea in your
+                  head becoming something people can click and feel. Digital media isn't separate from
+                  "real" life; it's the environment we live in. Constraints force clarity. Limits push
+                  you to solve.
+                </p>
+              </article>
+              <article
+                id="about-chapter-now"
+                class="about-story__chapter about-story__chapter--accent"
+                data-chapter
+                data-reveal
+              >
+                <p class="about-story__chapter-num" aria-hidden="true">04</p>
+                <h3 class="about-story__chapter-title">Now</h3>
+                <p class="about-story__text">
+                  I've traded Google Slides and scrapbooking for prototypes and print—but the motivation
+                  hasn't changed. I want digital/visual experiences to make you <em>feel</em> something
+                  and make life a little easier, built from nothing into something impactful.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-roll" aria-labelledby="about-roll-heading" data-reveal>
+          <div class="about-roll__head">
+            <h2 id="about-roll-heading" class="meta-label">Roll</h2>
+            <p class="about-roll__hint type-micro">Drag the frame or use ← →</p>
+          </div>
+
+          <div class="about-roll__deck" data-roll-viewer>
+            <button
+              type="button"
+              class="about-roll__arrow about-roll__arrow--prev"
+              data-roll-prev
+              aria-label="Previous frame"
+            >
+              ←
+            </button>
+
+            <div class="about-roll__viewport" data-roll-viewport tabindex="0" aria-roledescription="carousel">
+              <div class="about-roll__track" data-roll-track>
+                <figure
+                  class="about-roll__slide"
+                  data-roll-slide
+                  data-index="0"
+                  data-src="images/about/nyu.jpg"
+                  data-caption="Home in Huntington Beach"
+                >
+                  <img src="images/about/nyu.jpg" alt="Washington Square, NYU" width="480" height="600" loading="lazy" />
+                  <span class="about-roll__ph">01</span>
+                </figure>
+                <figure
+                  class="about-roll__slide"
+                  data-roll-slide
+                  data-index="1"
+                  data-src="images/about/japanleah.jpg"
+                  data-caption="My sister and I in Kyoto!"
+                >
+                  <img src="images/about/japanleah.jpg" alt="Japan trip with Leah" width="480" height="600" loading="lazy" />
+                  <span class="about-roll__ph">02</span>
+                </figure>
+                <figure
+                  class="about-roll__slide"
+                  data-roll-slide
+                  data-index="2"
+                  data-src="images/about/jeju.JPG"
+                  data-caption="Jeju Island"
+                >
+                  <img src="images/about/jeju.JPG" alt="Jeju Island" width="480" height="600" loading="lazy" />
+                  <span class="about-roll__ph">03</span>
+                </figure>
+                <figure
+                  class="about-roll__slide"
+                  data-roll-slide
+                  data-index="3"
+                  data-src="images/about/tomodachi.JPG"
+                  data-caption="My Tomodachi Life Character"
+                >
+                  <img src="images/about/tomodachi.JPG" alt="Friends in Japan" width="480" height="600" loading="lazy" />
+                  <span class="about-roll__ph">04</span>
+                </figure>
+                <figure
+                  class="about-roll__slide"
+                  data-roll-slide
+                  data-index="4"
+                  data-src="images/about/europe.JPG"
+                  data-caption="In Paris. My tomodachi life outfit was based off this."
+                >
+                  <img src="images/about/europe.JPG" alt="View from a train in Europe" width="480" height="600" loading="lazy" />
+                  <span class="about-roll__ph">05</span>
+                </figure>
+              </div>
+              <p class="about-roll__scrub-hint" aria-hidden="true">drag</p>
+            </div>
+
+            <button
+              type="button"
+              class="about-roll__arrow about-roll__arrow--next"
+              data-roll-next
+              aria-label="Next frame"
+            >
+              →
+            </button>
+          </div>
+
+          <p class="about-roll__caption" data-roll-caption aria-live="polite">
+            <span data-roll-caption-text>Home in Huntington Beach</span>
+          </p>
+
+          <div class="about-roll__footer">
+            <p class="about-roll__counter" data-roll-counter aria-live="polite">01 / 05</p>
+            <div class="about-roll__ticks" data-roll-ticks role="tablist" aria-label="Choose frame">
+              <button type="button" class="about-roll__tick is-active" data-roll-to="0" role="tab" aria-selected="true">01</button>
+              <button type="button" class="about-roll__tick" data-roll-to="1" role="tab" aria-selected="false">02</button>
+              <button type="button" class="about-roll__tick" data-roll-to="2" role="tab" aria-selected="false">03</button>
+              <button type="button" class="about-roll__tick" data-roll-to="3" role="tab" aria-selected="false">04</button>
+              <button type="button" class="about-roll__tick" data-roll-to="4" role="tab" aria-selected="false">05</button>
+            </div>
+            <button type="button" class="about-roll__shuffle" data-roll-shuffle>Shuffle</button>
+          </div>
+        </section>
+
+        <p class="about-page__cta" data-reveal>
+          <a href="index.html#projects" class="about-page__cta-link"
+            >See projects →</a
+          >
         </p>
       </div>
     </main>
 
     <footer class="site-footer">
       <p class="footer-display">
-        <span class="footer-display__text" aria-label="Emily Nguyen"><span class="footer-display__line">Emily</span><span class="footer-display__sep" aria-hidden="true">/</span><span class="footer-display__line">Nguyen</span></span>
+        <span class="footer-display__text" aria-label="Emily Nguyen"
+          ><span class="footer-display__line">Emily</span
+          ><span class="footer-display__sep" aria-hidden="true">/</span
+          ><span class="footer-display__line">Nguyen</span></span
+        >
       </p>
       <div class="footer-meta">
-        <p class="footer-copy">
-          &copy; 2026 Emily Nguyen. All rights reserved. Design &amp; code.
-        </p>
+        <p class="footer-copy">&copy; 2026 Emily Nguyen. Design &amp; code.</p>
         <nav class="footer-links" aria-label="Footer links">
           <a href="mailto:etn6939@nyu.edu">Email</a>
-          <a href="https://www.linkedin.com/in/emilythienanhnguyen" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view" rel="noopener noreferrer">Resume</a>
+          <a href="https://www.linkedin.com/in/emilythienanhnguyen" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+          <a
+            href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
           <a href="https://github.com/etn05" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels" rel="noopener noreferrer">Are.na</a>
+          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels" rel="noopener noreferrer"
+            >Are.na</a
+          >
         </nav>
       </div>
     </footer>
+
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-text"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      (function () {
+        var facts = document.querySelectorAll("[data-fact]");
+        var detail = document.getElementById("about-fact-detail");
+        var copy = {
+          Name: "Emily — multidisciplinary designer, Integrated Design & Media @ NYU.",
+          Sign: "Cancer — empathetic, creative, probably working from home right now.",
+          Currently:
+            "Working on the creative team at Pulse Records — branding, digital, and visual storytelling.",
+        };
+
+        facts.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            facts.forEach(function (b) {
+              b.classList.remove("is-active");
+              b.setAttribute("aria-pressed", "false");
+            });
+            btn.classList.add("is-active");
+            btn.setAttribute("aria-pressed", "true");
+            var label = btn.querySelector(".about-fact__label");
+            if (detail && label && copy[label.textContent.trim()]) {
+              detail.textContent = copy[label.textContent.trim()];
+            }
+          });
+        });
+
+        document.querySelectorAll("[data-play-tab]").forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            var id = tab.getAttribute("data-play-tab");
+            document.querySelectorAll("[data-play-tab]").forEach(function (t) {
+              var on = t === tab;
+              t.classList.toggle("is-active", on);
+              t.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            document.querySelectorAll("[data-play-panel]").forEach(function (panel) {
+              var on = panel.getAttribute("data-play-panel") === id;
+              panel.classList.toggle("is-active", on);
+              panel.hidden = !on;
+              if (on) {
+                var frame = panel.querySelector("iframe[data-src]");
+                if (frame && !frame.src) {
+                  frame.src = frame.getAttribute("data-src");
+                }
+              }
+            });
+          });
+        });
+
+        (function initAboutRoll() {
+          var viewer = document.querySelector("[data-roll-viewer]");
+          var viewport = document.querySelector("[data-roll-viewport]");
+          var track = document.querySelector("[data-roll-track]");
+          var slides = document.querySelectorAll("[data-roll-slide]");
+          var counter = document.querySelector("[data-roll-counter]");
+          var ticks = document.querySelectorAll("[data-roll-to]");
+          var prevBtn = document.querySelector("[data-roll-prev]");
+          var nextBtn = document.querySelector("[data-roll-next]");
+          var shuffleBtn = document.querySelector("[data-roll-shuffle]");
+          if (!viewer || !track || !slides.length) return;
+
+          var total = slides.length;
+          var index = 0;
+          var dragging = false;
+          var startX = 0;
+          var startIndex = 0;
+
+          slides.forEach(function (slide) {
+            var img = slide.querySelector("img");
+            if (!img) return;
+            function sync() {
+              slide.classList.toggle("has-image", img.naturalWidth > 0);
+            }
+            img.addEventListener("load", sync, { once: true });
+            img.addEventListener("error", sync, { once: true });
+            if (img.complete) sync();
+          });
+
+          function frameLabel(i) {
+            return String(i + 1).padStart(2, "0");
+          }
+
+          var captionText = document.querySelector("[data-roll-caption-text]");
+
+          function setIndex(next, animate) {
+            index = (next + total) % total;
+            var slide = slides[index];
+            track.style.transition =
+              animate === false ? "none" : "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)";
+            track.style.transform = "translate3d(" + -index * (100 / total) + "%, 0, 0)";
+            if (counter) {
+              counter.textContent = frameLabel(index) + " / " + String(total).padStart(2, "0");
+            }
+            if (slide && captionText) {
+              captionText.textContent = slide.getAttribute("data-caption") || "";
+            }
+            ticks.forEach(function (tick) {
+              var i = parseInt(tick.getAttribute("data-roll-to"), 10);
+              var on = i === index;
+              tick.classList.toggle("is-active", on);
+              tick.setAttribute("aria-selected", on ? "true" : "false");
+            });
+          }
+
+          setIndex(0, false);
+
+          function go(delta) {
+            setIndex(index + delta, true);
+          }
+
+          if (prevBtn) prevBtn.addEventListener("click", function () { go(-1); });
+          if (nextBtn) nextBtn.addEventListener("click", function () { go(1); });
+          ticks.forEach(function (tick) {
+            tick.addEventListener("click", function () {
+              setIndex(parseInt(tick.getAttribute("data-roll-to"), 10), true);
+            });
+          });
+          if (shuffleBtn) {
+            shuffleBtn.addEventListener("click", function () {
+              var r = index;
+              while (r === index) r = Math.floor(Math.random() * total);
+              setIndex(r, true);
+            });
+          }
+
+          if (viewport) {
+            viewport.addEventListener("keydown", function (e) {
+              if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+              if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+            });
+
+            viewport.addEventListener("pointerdown", function (e) {
+              if (e.button !== 0) return;
+              dragging = true;
+              startX = e.clientX;
+              startIndex = index;
+              track.style.transition = "none";
+              viewport.setPointerCapture(e.pointerId);
+            });
+
+            viewport.addEventListener("pointermove", function (e) {
+              if (!dragging) return;
+              var w = viewport.offsetWidth || 1;
+              var delta = (e.clientX - startX) / w;
+              var floatIndex = startIndex - delta * total;
+              floatIndex = Math.max(0, Math.min(total - 1, floatIndex));
+              track.style.transform = "translate3d(" + (-floatIndex * (100 / total)) + "%, 0, 0)";
+            });
+
+            function endDrag(e) {
+              if (!dragging) return;
+              dragging = false;
+              var w = viewport.offsetWidth || 1;
+              var delta = (e.clientX - startX) / w;
+              var moved = Math.round(startIndex - delta * total);
+              setIndex(moved, true);
+              try { viewport.releasePointerCapture(e.pointerId); } catch (err) {}
+            }
+
+            viewport.addEventListener("pointerup", endDrag);
+            viewport.addEventListener("pointercancel", endDrag);
+          }
+        })();
+
+        var chapterLinks = document.querySelectorAll("[data-chapter-link]");
+        var chapters = document.querySelectorAll("[data-chapter]");
+
+        chapterLinks.forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var id = link.getAttribute("href");
+            if (!id || id.charAt(0) !== "#") return;
+            var target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+
+        if (chapters.length && chapterLinks.length && "IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var id = entry.target.id;
+                chapterLinks.forEach(function (link) {
+                  var match = link.getAttribute("href") === "#" + id;
+                  link.classList.toggle("is-active", match);
+                });
+              });
+            },
+            { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+          );
+          chapters.forEach(function (ch) {
+            observer.observe(ch);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

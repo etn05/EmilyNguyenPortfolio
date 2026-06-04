@@ -18,15 +18,65 @@
   gsap.registerPlugin(ScrollTrigger);
 
   const easeOut = "power3.out";
+  /* Lower % = higher on screen = reveals sooner (88% was too far down the viewport) */
+  const revealStart = "top 72%";
+  const revealStartEarly = "top 78%";
+
+  function initHeroLoad() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const embed = hero.querySelector(".hero-embed-shell");
+    const gif = hero.querySelector(".hero-gif-shell");
+    const aside = hero.querySelector(".hero-meta__aside");
+    const intro = hero.querySelector(".hero-meta__intro");
+
+    const targets = [embed, gif, aside, intro].filter(Boolean);
+    gsap.set(targets, { opacity: 0 });
+
+    const tl = gsap.timeline({ defaults: { ease: easeOut } });
+
+    if (embed) {
+      gsap.set(embed, { scale: 0.98, y: 28 });
+      tl.to(
+        embed,
+        { opacity: 1, scale: 1, y: 0, duration: 1.15, ease: "power2.out" },
+        0.1
+      );
+    }
+
+    if (gif) {
+      gsap.set(gif, { y: 24 });
+      tl.to(gif, { opacity: 1, y: 0, duration: 1.05 }, 0.26);
+    }
+
+    if (aside) {
+      gsap.set(aside, { y: 28 });
+      tl.to(aside, { opacity: 1, y: 0, duration: 0.95 }, 0.38);
+    }
+
+    if (intro) {
+      gsap.set(intro, { y: 28 });
+      tl.to(intro, { opacity: 1, y: 0, duration: 0.95 }, 0.5);
+    }
+  }
+
+  initHeroLoad();
 
   gsap.utils.toArray("[data-reveal]").forEach(function (el, i) {
-    const delay = Number(el.dataset.revealDelay) || i * 0.06;
+    if (el.closest(".hero")) return;
+
+    const delay =
+      el.dataset.revealDelay !== undefined
+        ? Number(el.dataset.revealDelay)
+        : Math.min(i * 0.04, 0.28);
+    const start = el.dataset.revealStart || revealStart;
     gsap.fromTo(
       el,
       {
         opacity: 0,
-        y: el.dataset.revealAxis === "x" ? 0 : 32,
-        x: el.dataset.revealAxis === "x" ? 24 : 0,
+        y: el.dataset.revealAxis === "x" ? 0 : 28,
+        x: el.dataset.revealAxis === "x" ? 20 : 0,
       },
       {
         opacity: 1,
@@ -37,28 +87,12 @@
         ease: easeOut,
         scrollTrigger: {
           trigger: el,
-          start: "top 88%",
+          start: start,
           toggleActions: "play none none none",
+          once: true,
         },
       }
     );
-  });
-
-  gsap.from(".hero-embed-shell", {
-    opacity: 0,
-    scale: 0.98,
-    y: 28,
-    duration: 1.15,
-    ease: "power2.out",
-    delay: 0.12,
-  });
-
-  gsap.from(".hero-gif-shell", {
-    opacity: 0,
-    y: 24,
-    duration: 1.05,
-    ease: easeOut,
-    delay: 0.28,
   });
 
   const footerDisplay = document.querySelector(".footer-display__text");
@@ -70,8 +104,9 @@
       ease: easeOut,
       scrollTrigger: {
         trigger: ".site-footer",
-        start: "top 85%",
+        start: revealStartEarly,
         toggleActions: "play none none none",
+        once: true,
       },
     });
   }
