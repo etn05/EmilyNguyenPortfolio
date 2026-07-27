@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../images/faviconlight.png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../images/favicondark.png"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="icon" type="image/png" href="../images/faviconlight.png" />
+    <title>Identifi — Case Study · Emily Nguyen</title>
+    <meta
+      name="description"
+      content="Identifi — a speculative interface that visualizes your digital footprint. UCI Designathon 2025, top 10 of 250."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="case-study-page case-study-page--identifi">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="cs-progress" aria-hidden="true"><span class="cs-progress__bar"></span></div>
+
+    <header class="site-header cs-header">
+      <a href="../index.html" class="logo-mark" aria-label="Home — Emily Nguyen">天</a>
+      <nav class="nav-links" aria-label="Case study">
+        <a href="../index.html#projects" class="cs-back link-underline">← Projects</a>
+      </nav>
+    </header>
+
+    <main id="main" class="cs">
+      <header class="cs-hero">
+        <div class="cs-hero__inner">
+          <p class="cs-hero__eyebrow meta-label" data-reveal>Case Study · UX / UI</p>
+          <h1 class="cs-hero__title type-display" data-reveal data-reveal-delay="0.05">Identifi</h1>
+          <p class="cs-hero__lede" data-reveal data-reveal-delay="0.1">
+            A speculative interface built around you — scan your face, explore a 3D avatar of
+            yourself, and see where your image may exist across the internet.
+          </p>
+          <ul class="cs-tags" data-reveal data-reveal-delay="0.14" aria-label="Project tags">
+            <li class="cs-tag">UCI Designathon 2025</li>
+            <li class="cs-tag">Top 10 / 250</li>
+            <li class="cs-tag">Speculative</li>
+            <li class="cs-tag">Privacy</li>
+          </ul>
+        </div>
+
+        <figure class="cs-hero__media cs-media" data-cs-parallax data-reveal data-reveal-delay="0.18">
+          <div class="cs-media__frame">
+            <img
+              src="../images/projects/identifi-mockup.png"
+              alt="Identifi interface — speculative facial scan and 3D avatar exploration"
+              width="1280"
+              height="800"
+            />
+          </div>
+        </figure>
+      </header>
+
+      <section class="cs-glance" aria-label="At a glance">
+        <div class="cs-glance__grid">
+          <div class="cs-stat" data-reveal>
+            <p class="cs-stat__value">Top 10</p>
+            <p class="cs-stat__label meta-label">Placement</p>
+            <p class="cs-stat__note type-micro">UCI Designathon · 250 teams</p>
+          </div>
+          <div class="cs-stat" data-reveal data-reveal-delay="0.06">
+            <p class="cs-stat__value">48 hr</p>
+            <p class="cs-stat__label meta-label">Timeline</p>
+            <p class="cs-stat__note type-micro">Designathon sprint</p>
+          </div>
+          <div class="cs-stat" data-reveal data-reveal-delay="0.12">
+            <p class="cs-stat__value">4</p>
+            <p class="cs-stat__label meta-label">Team</p>
+            <p class="cs-stat__note type-micro">Kyuhong · Ben · Allie · Emily</p>
+          </div>
+          <div class="cs-stat" data-reveal data-reveal-delay="0.18">
+            <p class="cs-stat__value">2025</p>
+            <p class="cs-stat__label meta-label">Year</p>
+            <p class="cs-stat__note type-micro">Figma · Blender · Illustrator</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="cs-layout">
+        <nav class="cs-toc" aria-label="Case study sections">
+          <p class="cs-toc__label meta-label">Contents</p>
+          <p class="cs-toc__active meta-label" data-cs-active-num aria-live="polite">(01)</p>
+          <ol class="cs-toc__list">
+            <li><a href="#problem" class="cs-toc__link is-active" data-cs-link data-cs-num="01">Problem</a></li>
+            <li><a href="#goal" class="cs-toc__link" data-cs-link data-cs-num="02">Goal</a></li>
+            <li><a href="#solution" class="cs-toc__link" data-cs-link data-cs-num="03">Solution</a></li>
+            <li><a href="#architecture" class="cs-toc__link" data-cs-link data-cs-num="04">Architecture</a></li>
+            <li><a href="#process" class="cs-toc__link" data-cs-link data-cs-num="05">Process</a></li>
+            <li><a href="#results" class="cs-toc__link" data-cs-link data-cs-num="06">Results</a></li>
+          </ol>
+        </nav>
+
+        <div class="cs-body">
+          <section id="problem" class="cs-section" data-cs-section data-cs-index="01">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">01</p>
+              <h2 class="cs-section__title type-section">(Problem)</h2>
+            </header>
+
+            <div class="cs-split">
+              <div class="cs-prose" data-reveal>
+                <p>
+                  Every interaction online leaves a trail — images, behaviors, search history,
+                  biometrics, identity markers users rarely see or fully understand.
+                </p>
+                <p>
+                  As AI, facial recognition, VR, and neural interfaces integrate into daily life,
+                  the data being collected is becoming increasingly intimate.
+                </p>
+              </div>
+
+              <blockquote class="cs-pullquote cs-pullquote--accent" data-reveal>
+                <p>
+                  What if people could actually <em>see</em> where pieces of themselves existed online?
+                </p>
+              </blockquote>
+            </div>
+
+            <div class="cs-moment" data-reveal>
+              <div class="cs-moment__copy">
+                <p class="meta-label">The turning point</p>
+                <p class="cs-moment__text">
+                  A teammate discovered her Instagram photos reposted on inappropriate sites without
+                  consent. Removal took weeks of DMCA requests and platform outreach — shifting the
+                  project from abstract “digital privacy” into something urgent and personal.
+                </p>
+              </div>
+              <figure class="cs-figure cs-figure--lift cs-media" data-cs-parallax>
+                <div class="cs-media__frame">
+                  <img
+                    src="../images/projects/identifi-mockup.png"
+                    alt="Data trail visualization — where personal images surface online"
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption class="cs-figcap type-micro">Invisible data, made visible</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="goal" class="cs-section" data-cs-section data-cs-index="02">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">02</p>
+              <h2 class="cs-section__title type-section">(Goal)</h2>
+            </header>
+
+            <div class="cs-prompt" data-reveal>
+              <p class="meta-label">The prompt</p>
+              <p class="cs-prompt__text">“Design a speculative interface for future technologies.”</p>
+            </div>
+
+            <p class="cs-lead cs-lead--compact" data-reveal>
+              Make invisible data visible — starting with your own face. Privacy as something you
+              can orbit, inspect, and act on — not read in a terms-of-service PDF.
+            </p>
+          </section>
+
+          <section id="solution" class="cs-section cs-section--wide" data-cs-section data-cs-index="03">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">03</p>
+              <h2 class="cs-section__title type-section">(Solution)</h2>
+            </header>
+
+            <div class="cs-solution-intro" data-reveal>
+              <h3 class="cs-solution__name">Introducing Identifi</h3>
+              <p class="cs-prose cs-prose--tight">
+                Identifi centers on a speculative facial scan of yourself. The app captures your
+                likeness and builds a <strong>3D avatar</strong> you can explore — your data made
+                spatial, personal, and alive. From there, Identifi would speculatively scan the web
+                for matches: where your face, edits, and reuploads surface without your knowledge.
+              </p>
+              <p class="cs-prose cs-prose--tight">
+                Identity, likeness, and behavioral signals branch out from that core — framed as
+                living data in motion, not spreadsheets or legal text.
+              </p>
+            </div>
+
+            <div class="cs-callout cs-callout--scan" data-reveal>
+              <p class="meta-label">Core interaction</p>
+              <p class="cs-callout__text">
+                Scan → avatar → search. A speculative loop: see yourself rendered in 3D, then watch
+                the app trace where that image travels online.
+              </p>
+            </div>
+
+            <figure class="cs-figure cs-figure--full cs-figure--lift cs-media" data-cs-parallax data-reveal>
+              <div class="cs-media__frame">
+                <img
+                  src="../images/projects/identifi-mockup.png"
+                  alt="Identifi centralized data interface"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption class="cs-figcap type-micro">Facial scan → 3D avatar · hi-fi prototype</figcaption>
+            </figure>
+          </section>
+
+          <section id="architecture" class="cs-section" data-cs-section data-cs-index="04">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">04</p>
+              <h2 class="cs-section__title type-section">(Architecture)</h2>
+            </header>
+
+            <p class="cs-prose cs-prose--tight" data-reveal>
+              Everything radiates from the scan. Three data pillars organize what Identifi surfaces
+              once your likeness is captured — tap to expand each category.
+            </p>
+
+            <div class="cs-pillars" data-reveal>
+              <details class="cs-pillar">
+                <summary class="cs-pillar__summary">
+                  <span class="cs-pillar__index">01</span>
+                  <span class="cs-pillar__head">
+                    <span class="cs-pillar__title">Identifier</span>
+                    <span class="cs-pillar__subtitle type-micro">Identity data</span>
+                  </span>
+                  <span class="cs-pillar__toggle" aria-hidden="true"></span>
+                </summary>
+                <ul class="cs-pillar__list type-micro">
+                  <li>Name</li>
+                  <li>Email address</li>
+                  <li>Phone number</li>
+                  <li>Linked accounts</li>
+                </ul>
+              </details>
+
+              <details class="cs-pillar" open>
+                <summary class="cs-pillar__summary">
+                  <span class="cs-pillar__index">02</span>
+                  <span class="cs-pillar__head">
+                    <span class="cs-pillar__title">Likeness</span>
+                    <span class="cs-pillar__subtitle type-micro">Image data · starts at the scan</span>
+                  </span>
+                  <span class="cs-pillar__toggle" aria-hidden="true"></span>
+                </summary>
+                <ul class="cs-pillar__list type-micro">
+                  <li>3D avatar generated from facial scan</li>
+                  <li>Web-wide image &amp; likeness matches</li>
+                  <li>Facial recognition hits</li>
+                  <li>Edited / reuploaded images</li>
+                </ul>
+              </details>
+
+              <details class="cs-pillar">
+                <summary class="cs-pillar__summary">
+                  <span class="cs-pillar__index">03</span>
+                  <span class="cs-pillar__head">
+                    <span class="cs-pillar__title">Behavioral</span>
+                    <span class="cs-pillar__subtitle type-micro">Behavioral data</span>
+                  </span>
+                  <span class="cs-pillar__toggle" aria-hidden="true"></span>
+                </summary>
+                <ul class="cs-pillar__list type-micro">
+                  <li>AI interaction history</li>
+                  <li>Algorithmic profiling</li>
+                  <li>VR interaction patterns</li>
+                  <li>Neural interface data</li>
+                </ul>
+              </details>
+            </div>
+          </section>
+
+          <section id="process" class="cs-section" data-cs-section data-cs-index="05">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">05</p>
+              <h2 class="cs-section__title type-section">(Process)</h2>
+            </header>
+
+            <div class="cs-process-stack">
+              <article class="cs-process-block" data-reveal>
+                <details class="cs-process-block__details" open>
+                  <summary class="cs-process-block__summary">
+                    <span class="meta-label">Lo-fi</span>
+                    <h3 class="cs-process-block__title">Explorations</h3>
+                    <span class="cs-process-block__chevron" aria-hidden="true"></span>
+                  </summary>
+                  <div class="cs-process-block__body">
+                    <p class="cs-process-block__text type-micro">
+                      Quick sketches to define navigation flow, data hierarchy, emotional pacing, and
+                      what users should feel at each stage. Early concepts focused on discovery —
+                      uncovering unknown information about yourself online.
+                    </p>
+                    <figure class="cs-figure cs-figure--lift">
+                      <img
+                        src="../images/placeholder.svg"
+                        alt="Lo-fi wireframe sketches — replace with your explorations"
+                        width="900"
+                        height="560"
+                        loading="lazy"
+                      />
+                      <figcaption class="cs-figcap type-micro">Lo-fi navigation &amp; hierarchy sketches</figcaption>
+                    </figure>
+                  </div>
+                </details>
+              </article>
+
+              <article class="cs-process-block" data-reveal>
+                <details class="cs-process-block__details">
+                  <summary class="cs-process-block__summary">
+                    <span class="meta-label">Hi-fi</span>
+                    <h3 class="cs-process-block__title">Prototype</h3>
+                    <span class="cs-process-block__chevron" aria-hidden="true"></span>
+                  </summary>
+                  <div class="cs-process-block__body">
+                    <p class="cs-process-block__text type-micro">
+                      Full UX flows in Figma — facial scan onboarding, 3D avatar exploration, web
+                      image search results, data categorization, threat detection, and deletion
+                      workflows. Major focus on making an unsettling process feel navigable.
+                    </p>
+                    <figure class="cs-figure cs-figure--lift cs-media" data-cs-parallax>
+                      <div class="cs-media__frame">
+                        <img
+                          src="../images/projects/identifi-mockup.png"
+                          alt="High-fidelity Identifi prototype screens"
+                          width="900"
+                          height="560"
+                          loading="lazy"
+                        />
+                      </div>
+                      <figcaption class="cs-figcap type-micro">Scan · avatar · image-match results</figcaption>
+                    </figure>
+                  </div>
+                </details>
+              </article>
+            </div>
+          </section>
+
+          <section id="results" class="cs-section cs-section--last" data-cs-section data-cs-index="06">
+            <header class="cs-section__head" data-reveal>
+              <p class="cs-section__num" aria-hidden="true">06</p>
+              <h2 class="cs-section__title type-section">(Results)</h2>
+            </header>
+
+            <p class="cs-lead cs-lead--compact" data-reveal>
+              Identifi placed <strong>top 10 at UCI Designathon 2025</strong> — not just as a concept deck,
+              but as a navigable speculative product judges could click through, argue about, and remember.
+            </p>
+
+            <div class="cs-outcomes" data-reveal>
+              <div class="cs-outcome">
+                <p class="cs-outcome__value">Top 10</p>
+                <p class="cs-outcome__label">of 250 teams</p>
+              </div>
+              <div class="cs-outcome">
+                <p class="cs-outcome__value">6</p>
+                <p class="cs-outcome__label">core flows shipped</p>
+              </div>
+              <div class="cs-outcome">
+                <p class="cs-outcome__value">48 hr</p>
+                <p class="cs-outcome__label">concept to prototype</p>
+              </div>
+            </div>
+
+            <div class="cs-awards" data-reveal>
+              <div class="cs-award">
+                <p class="cs-award__label meta-label">Recognized for</p>
+                <p class="cs-award__value">Visual Identity</p>
+                <p class="cs-award__note type-micro">A distinct speculative world that made abstract data feel visceral</p>
+              </div>
+              <div class="cs-award">
+                <p class="cs-award__label meta-label">Recognized for</p>
+                <p class="cs-award__value">Concept</p>
+                <p class="cs-award__note type-micro">Framing privacy as personal — tied to your face, not fine print</p>
+              </div>
+              <div class="cs-award">
+                <p class="cs-award__label meta-label">Recognized for</p>
+                <p class="cs-award__value">Innovation</p>
+                <p class="cs-award__note type-micro">A fresh angle on surveillance literacy and digital ownership</p>
+              </div>
+            </div>
+
+            <div class="cs-results-grid" data-reveal>
+              <div class="cs-results-col">
+                <p class="meta-label">What we shipped</p>
+                <ul class="cs-checklist cs-checklist--tight">
+                  <li>End-to-end Figma prototype — onboarding through deletion workflows</li>
+                  <li>Three-pillar data model mapping identity, likeness, and behavior</li>
+                  <li>Visual system pairing Blender renders with interface chrome</li>
+                  <li>Pitch narrative anchored in a real, personal privacy violation</li>
+                </ul>
+              </div>
+              <div class="cs-results-col">
+                <p class="meta-label">What landed</p>
+                <ul class="cs-checklist cs-checklist--tight">
+                  <li>Judges called out the emotional hook — privacy felt urgent, not theoretical</li>
+                  <li>Peers asked “wait, is this real?” during the footprint map demo</li>
+                  <li>Post-presentation debates on image rights, AI scraping, and consent</li>
+                  <li>Proof that speculative work can still be rigorous and product-ready</li>
+                </ul>
+              </div>
+            </div>
+
+            <blockquote class="cs-pullquote cs-pullquote--closing" data-reveal>
+              <p>
+                The placement mattered — but the real win was watching people sit with the weight of
+                their own data for the first time.
+              </p>
+              <footer class="cs-pullquote__cite type-micro">Team takeaway · UCI Designathon 2025</footer>
+            </blockquote>
+          </section>
+        </div>
+      </div>
+
+      <nav class="cs-next" aria-label="Next project" data-reveal>
+        <p class="meta-label">Next project</p>
+        <a href="../index.html#projects" class="cs-next__link">
+          <span class="cs-next__title type-section">All projects</span>
+          <span class="cs-next__arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-display">
+        <span class="footer-display__text" aria-label="Emily Nguyen"
+          ><span class="footer-display__line">Emily</span
+          ><span class="footer-display__sep" aria-hidden="true">/</span
+          ><span class="footer-display__line">Nguyen</span></span
+        >
+      </p>
+      <div class="footer-meta">
+        <p class="footer-copy">&copy; 2026 Emily Nguyen. Design &amp; code.</p>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="mailto:etn6939@nyu.edu">Email</a>
+          <a href="https://www.linkedin.com/in/emilythienanhnguyen" rel="noopener noreferrer">LinkedIn</a>
+          <a
+            href="https://drive.google.com/file/d/1rsKlqIr64KdZKxQ3i6sPFWhZQwpWvSFW/view"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+          <a href="https://github.com/etn05" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.are.na/emily-nguyen-dmsvjzpdvaa/channels" rel="noopener noreferrer">Are.na</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-text"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="../main.js"></script>
+    <script>
+      (function () {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var progressBar = document.querySelector(".cs-progress__bar");
+        var tocLinks = document.querySelectorAll("[data-cs-link]");
+        var sections = document.querySelectorAll("[data-cs-section]");
+        var activeNum = document.querySelector("[data-cs-active-num]");
+
+        if (progressBar) {
+          window.addEventListener(
+            "scroll",
+            function () {
+              var doc = document.documentElement;
+              var scrolled = doc.scrollTop;
+              var height = doc.scrollHeight - doc.clientHeight;
+              progressBar.style.width = height > 0 ? (scrolled / height) * 100 + "%" : "0%";
+            },
+            { passive: true }
+          );
+        }
+
+        tocLinks.forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var id = link.getAttribute("href");
+            if (!id || id.charAt(0) !== "#") return;
+            var target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+
+        if (sections.length && tocLinks.length && "IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var id = entry.target.id;
+                var index = entry.target.getAttribute("data-cs-index");
+                tocLinks.forEach(function (link) {
+                  link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
+                });
+                if (activeNum && index) {
+                  activeNum.textContent = "(" + index + ")";
+                }
+              });
+            },
+            { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+          );
+          sections.forEach(function (section) {
+            observer.observe(section);
+          });
+        }
+
+        if (!reduced && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+
+          document.querySelectorAll("[data-cs-parallax]").forEach(function (wrap) {
+            var inner = wrap.querySelector(".cs-media__frame") || wrap.querySelector("img");
+            if (!inner) return;
+            gsap.fromTo(
+              inner,
+              { y: -24 },
+              {
+                y: 24,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: wrap,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.6,
+                },
+              }
+            );
+          });
+
+          document.querySelectorAll(".cs-figure--lift img, .cs-media__frame img").forEach(function (img) {
+            gsap.fromTo(
+              img,
+              { scale: 1.04 },
+              {
+                scale: 1,
+                duration: 1.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: img.closest(".cs-figure, .cs-hero__media") || img,
+                  start: "top 85%",
+                  toggleActions: "play none none none",
+                  once: true,
+                },
+              }
+            );
+          });
+        }
+
+        document.querySelectorAll(".cs-pillar").forEach(function (pillar) {
+          pillar.addEventListener("toggle", function () {
+            if (!pillar.open) return;
+            document.querySelectorAll(".cs-pillar").forEach(function (other) {
+              if (other !== pillar) other.open = false;
+            });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
